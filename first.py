@@ -11,6 +11,7 @@ grace_data = np.genfromtxt(grace_data_file_name ,
 print(grace_data.shape)
 
 gps_data = np.genfromtxt(gps_data_file_name ,
+        skip_header = 1 ,
         delimiter = None) 
 # The data has variable number of spaces seperating columns
 # None is the default setting which means any white space is taken as delimiter which include single space, many spaces, tab or many tab etc
@@ -56,26 +57,23 @@ Egps = EIgps.astype(float) + EFgps.astype(float)
 Ngps = NIgps.astype(float) + NFgps.astype(float)
 Ugps = UIgps.astype(float) + UFgps.astype(float)
 
-plt.figure(0)
+# Converting units m to mm
+Egps , Ngps , Ugps = Egps*1000 , Ngps*1000 , Ugps*1000 
+
+
+
+
+#"""
+plt.figure("GPS and GRACE vertical")
 plt.plot(Tgrace,Ugrace,label="GRACE")
-plt.plot(Tgps,Ugps,label="GPS")
+plt.plot(Tgps,Ugps-Ugps.mean(),'.',label="GPS")
+plt.title("GRACE and GPS at WARA")
+plt.xlabel("year")
+plt.ylabel("Vertical (mm)")
 plt.legend()
-
-"""
-#plt.figure()
-#plt.plot(Tgrace,Ugrace)
-#plt.plot(Tgps,(Zgps-Zgps.mean())*1000)
-
-plt.figure(1)
-
-plt.subplot(211)
-plt.plot(Tgrace,Ugrace)
-plt.subplot(212)
-plt.plot(Tgps,Ugps)
 #"""
-
 #"""
-plt.figure("GPS and GRACE")
+plt.figure("GPS and GRACE all data")
 plt.subplot(231)
 plt.plot(Tgps,Egps)
 plt.title("GPS East")

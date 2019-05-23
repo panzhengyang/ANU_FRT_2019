@@ -19,7 +19,7 @@ gps_data = np.genfromtxt(gps_data_file_name ,
 print(gps_data.shape)
 
 # time north north_sigma east east_sigma up up_sigma 
-Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0] , grace_data[:,1] , grace_data[:,2] , grace_data[:,3] , grace_data[:,4] , grace_data[:,5] , grace_data[:,6]
+Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,1].astype(float) , grace_data[:,2].astype(float) , grace_data[:,3].astype(float), grace_data[:,4].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
 
 """ Example line for gps:
 
@@ -51,7 +51,7 @@ Meaning of columns:
 20.  0.04405  north-vertical correlation coefficient
 """
 
-Tgps , EIgps , EFgps , NIgps , NFgps , UIgps , UFgps , ESgps , NSgps , USgps = gps_data[:,2] , gps_data[:,7] , gps_data[:,8] , gps_data[:,9] , gps_data[:,10] , gps_data[:,11] , gps_data[:,12] , gps_data[:,14] , gps_data[:,15] , gps_data[:,16] 
+Tgps , EIgps , EFgps , NIgps , NFgps , UIgps , UFgps , ESgps , NSgps , USgps = gps_data[:,2].astype(float) , gps_data[:,7].astype(float) , gps_data[:,8].astype(float) , gps_data[:,9].astype(float) , gps_data[:,10].astype(float) , gps_data[:,11].astype(float) , gps_data[:,12].astype(float) , gps_data[:,14].astype(float) , gps_data[:,15].astype(float) , gps_data[:,16].astype(float) 
 
 Egps = EIgps.astype(float) + EFgps.astype(float)
 Ngps = NIgps.astype(float) + NFgps.astype(float)
@@ -61,9 +61,19 @@ Ugps = UIgps.astype(float) + UFgps.astype(float)
 Egps , Ngps , Ugps = Egps*1000 , Ngps*1000 , Ugps*1000 
 
 
+# Averaging GPS data at times when GRACE data is available
+
+# DTgrace is the difference of consecutive elements in Tgrace
+DTgrace = np.diff(Tgrace)       # length of DTgrace is one less than Tgrace
+
+# Forward Tgrace and Backward Tgrace are the time bounds(upper and lower) of at each Tgrace for taking mean of GPS data at each GRACE data
+# DTgrace is padded since it is one element less than Tgrace
+FTgrace = Tgrace + np.pad(DTgrace,(0,1),'constant',constant_values = (0,0)) / 2          
+BTgrace = Tgrace - np.pad(DTgrace,(1,0),'constnat',constant_values = (0,0)) / 2
 
 
-#"""
+
+"""
 plt.figure("GPS and GRACE vertical")
 plt.plot(Tgrace,Ugrace,label="GRACE")
 plt.plot(Tgps,Ugps-Ugps.mean(),'.',label="GPS")
@@ -72,7 +82,7 @@ plt.xlabel("year")
 plt.ylabel("Vertical (mm)")
 plt.legend()
 #"""
-#"""
+"""
 plt.figure("GPS and GRACE all data")
 plt.subplot(231)
 plt.plot(Tgps,Egps)

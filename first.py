@@ -69,9 +69,61 @@ DTgrace = np.diff(Tgrace)       # length of DTgrace is one less than Tgrace
 # Forward Tgrace and Backward Tgrace are the time bounds(upper and lower) of at each Tgrace for taking mean of GPS data at each GRACE data
 # DTgrace is padded since it is one element less than Tgrace
 FTgrace = Tgrace + np.pad(DTgrace,(0,1),'constant',constant_values = (0,0)) / 2          
-BTgrace = Tgrace - np.pad(DTgrace,(1,0),'constnat',constant_values = (0,0)) / 2
+BTgrace = Tgrace - np.pad(DTgrace,(1,0),'constant',constant_values = (0,0)) / 2
+
+# I don't know how to avoid this loop
+
+ReTgps = Tgrace
+ReNgps = Ngrace * 0
+ReEgps = Egrace * 0
+ReUgps = Ugrace * 0
+ReNSgps = NSgrace * 0
+ReESgps = ESgrace * 0
+ReUSgps = USgrace * 0
+data_flag = (Tgrace * 0).astype(bool)
+
+for i in range(np.size(Tgrace)):
+    
+    selection_flag = np.logical_and( Tgps < FTgrace[i] , Tgps > BTgrace[i] ) 
+    data_flag[i] = selection_flag.sum()     # gets boolean elements, not integers 
+    
+    ReNgps[i] = Ngps[ selection_flag ].mean()
+    ReEgps[i] = Egps[ selection_flag ].mean()
+    ReUgps[i] = Ugps[ selection_flag ].mean()
+    
+    ReNSgps[i] = NSgps[ selection_flag ].mean()
+    ReESgps[i] = ESgps[ selection_flag ].mean()
+    ReUSgps[i] = USgps[ selection_flag ].mean()
+
+print(ReTgps)
+print(ReUgps)
+
+ReTgps = ReTgps[data_flag]
+ReNgps = ReNgps[data_flag]
+ReEgps = ReEgps[data_flag]
+ReUgps = ReUgps[data_flag]
+ReNSgps = ReNSgps[data_flag]
+ReESgps = ReESgps[data_flag]
+ReUSgps = ReUSgps[data_flag]
 
 
+
+print(ReUgps)
+print(np.shape(Ugrace))
+print(np.shape(ReUgps))
+print(np.shape(Ugrace[data_flag]))
+
+
+#"""
+plt.figure("Resampled GPS and GRACE vertical")
+plt.plot(Tgrace,Ugrace,label="GRACE")
+plt.plot(ReTgps,ReUgps - ReUgps.mean(),label="ReGPS")
+plt.plot(Tgps,Ugps-Ugps.mean(),'.',label="GPS")
+plt.title("GRACE and ReGPS at WARA")
+plt.xlabel("year")
+plt.ylabel("Vertical (mm)")
+plt.legend()
+#"""
 
 """
 plt.figure("GPS and GRACE vertical")

@@ -121,10 +121,20 @@ rmse_gps = np.sqrt(np.mean((ReUgps.mean()-ReUgps)**2))
 rmse_grace = np.sqrt(np.mean((ReUgrace.mean()-ReUgrace)**2))
 rms_grace_gps = np.sqrt(np.mean((ReUgrace-ReUgps)**2))
 
-print("\n\tRMS error of GPS is\t",rmse_gps)
-print("\n\tRMS error of GRACE is\t",rmse_grace)
-print("\n\tRMS of GRACE-GPS is\t",rms_grace_gps)
-#"""
+print('\n\tRMS error of GPS is\t',rmse_gps)
+print('\n\tRMS error of GRACE is\t',rmse_grace)
+print('\n\tRMS of GRACE-GPS is\t',rms_grace_gps)
+
+'''
+std_gps = np.std(ReUgps)
+std_grace = np.std(ReUgrace)
+std_grace_gps = np.std(ReUgrace-ReUgps)
+
+print('\n\tSTD error of GPS is\t',rmse_gps)
+print('\n\tSTD error of GRACE is\t',rmse_grace)
+print('\n\tSTD of GRACE-GPS is\t',rms_grace_gps)
+#'''
+'''
 plt.figure("GRACE and Resampled GPS vertical")
 plt.plot(Tgrace,Ugrace,label="GRACE")
 plt.plot(ReTgps,ReUgps,label="ReGPS")
@@ -133,8 +143,8 @@ plt.title("GRACE and ReGPS at WARA")
 plt.xlabel("year")
 plt.ylabel("Vertical (mm)")
 plt.legend()
-#"""
-"""
+#'''
+'''
 plt.figure("Selected GRACE and GPS data")
 plt.plot(ReTgps,ReUgps,label="GPS")
 plt.plot(ReTgrace,ReUgrace,label="GRACE")
@@ -142,8 +152,8 @@ plt.xlabel("year")
 plt.ylabel("Vertical (mm)")
 plt.title("Selected data of GRACE and GPS")
 plt.legend()
-#"""
-"""
+#'''
+'''
 plt.figure("GPS and GRACE vertical")
 plt.plot(Tgrace,Ugrace,label="GRACE")
 plt.plot(Tgps,Ugps,'.',label="GPS")
@@ -151,8 +161,8 @@ plt.title("GRACE and GPS at WARA")
 plt.xlabel("year")
 plt.ylabel("Vertical (mm)")
 plt.legend()
-#"""
-"""
+#'''
+'''
 plt.figure("GPS and GRACE all data")
 plt.subplot(231)
 plt.plot(Tgps,Egps)
@@ -172,5 +182,5 @@ plt.title("GRACE North")
 plt.subplot(236)
 plt.plot(Tgrace,Ugrace)
 plt.title("GRACE Up")
-#"""
+#'''
 plt.show()

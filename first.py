@@ -60,6 +60,10 @@ Ugps = UIgps.astype(float) + UFgps.astype(float)
 # Converting units m to mm
 Egps , Ngps , Ugps = Egps*1000 , Ngps*1000 , Ugps*1000 
 
+# Removing to mean value from GPS data
+Egps = Egps - Egps.mean()
+Ngps = Ngps - Ngps.mean()
+Ugps = Ugps - Ugps.mean()
 
 # Averaging GPS data at times when GRACE data is available
 
@@ -95,9 +99,8 @@ for i in range(np.size(Tgrace)):
     ReESgps[i] = ESgps[ selection_flag ].mean()
     ReUSgps[i] = USgps[ selection_flag ].mean()
 
-print(ReTgps)
-print(ReUgps)
 
+# selecting data only when both GRACE and GPS are simultaniously available
 ReTgps = ReTgps[data_flag]
 ReNgps = ReNgps[data_flag]
 ReEgps = ReEgps[data_flag]
@@ -106,29 +109,44 @@ ReNSgps = ReNSgps[data_flag]
 ReESgps = ReESgps[data_flag]
 ReUSgps = ReUSgps[data_flag]
 
+ReTgrace = Tgrace[data_flag]
+ReNgrace = Ngrace[data_flag]
+ReEgrace = Egrace[data_flag]
+ReUgrace = Ugrace[data_flag]
+ReNSgrace = NSgrace[data_flag]
+ReESgrace = ESgrace[data_flag]
+ReUSgrace = USgrace[data_flag]
 
+rmse_gps = np.sqrt(np.mean((ReUgps.mean()-ReUgps)**2))
+rmse_grace = np.sqrt(np.mean((ReUgrace.mean()-ReUgrace)**2))
+rms_grace_gps = np.sqrt(np.mean((ReUgrace-ReUgps)**2))
 
-print(ReUgps)
-print(np.shape(Ugrace))
-print(np.shape(ReUgps))
-print(np.shape(Ugrace[data_flag]))
-
-
+print("\n\tRMS error of GPS is\t",rmse_gps)
+print("\n\tRMS error of GRACE is\t",rmse_grace)
+print("\n\tRMS of GRACE-GPS is\t",rms_grace_gps)
 #"""
-plt.figure("Resampled GPS and GRACE vertical")
+plt.figure("GRACE and Resampled GPS vertical")
 plt.plot(Tgrace,Ugrace,label="GRACE")
-plt.plot(ReTgps,ReUgps - ReUgps.mean(),label="ReGPS")
-plt.plot(Tgps,Ugps-Ugps.mean(),'.',label="GPS")
+plt.plot(ReTgps,ReUgps,label="ReGPS")
+plt.plot(Tgps,Ugps,'.',label="GPS")
 plt.title("GRACE and ReGPS at WARA")
 plt.xlabel("year")
 plt.ylabel("Vertical (mm)")
 plt.legend()
 #"""
-
+"""
+plt.figure("Selected GRACE and GPS data")
+plt.plot(ReTgps,ReUgps,label="GPS")
+plt.plot(ReTgrace,ReUgrace,label="GRACE")
+plt.xlabel("year")
+plt.ylabel("Vertical (mm)")
+plt.title("Selected data of GRACE and GPS")
+plt.legend()
+#"""
 """
 plt.figure("GPS and GRACE vertical")
 plt.plot(Tgrace,Ugrace,label="GRACE")
-plt.plot(Tgps,Ugps-Ugps.mean(),'.',label="GPS")
+plt.plot(Tgps,Ugps,'.',label="GPS")
 plt.title("GRACE and GPS at WARA")
 plt.xlabel("year")
 plt.ylabel("Vertical (mm)")
@@ -156,4 +174,3 @@ plt.plot(Tgrace,Ugrace)
 plt.title("GRACE Up")
 #"""
 plt.show()
-

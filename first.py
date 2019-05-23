@@ -60,11 +60,6 @@ Ugps = UIgps.astype(float) + UFgps.astype(float)
 # Converting units m to mm
 Egps , Ngps , Ugps = Egps*1000 , Ngps*1000 , Ugps*1000 
 
-# Removing to mean value from GPS data
-Egps = Egps - Egps.mean()
-Ngps = Ngps - Ngps.mean()
-Ugps = Ugps - Ugps.mean()
-
 # Averaging GPS data at times when GRACE data is available
 
 # DTgrace is the difference of consecutive elements in Tgrace
@@ -116,6 +111,13 @@ ReUgrace = Ugrace[data_flag]
 ReNSgrace = NSgrace[data_flag]
 ReESgrace = ESgrace[data_flag]
 ReUSgrace = USgrace[data_flag]
+
+# Removing mean value from GPS data
+# This process should not be done initially as mean should be calculated based on data when GRACE data is not present
+# This needs further corrections
+ReNgps = ReNgps - ReNgps.mean()
+ReEgps = ReEgps - ReEgps.mean()
+ReUgps = ReUgps - ReUgps.mean()
 
 rmse_gps = np.sqrt(np.mean((ReUgps.mean()-ReUgps)**2))
 rmse_grace = np.sqrt(np.mean((ReUgrace.mean()-ReUgrace)**2))

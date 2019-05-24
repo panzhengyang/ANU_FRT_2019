@@ -114,11 +114,19 @@ ReUSgrace = USgrace[data_flag]
 
 # Removing mean value from GPS data
 # This process should not be done initially as mean should be calculated based on data when GRACE data is not present
-# This needs further corrections
+# This needs further inspection
 ReNgps = ReNgps - ReNgps.mean()
 ReEgps = ReEgps - ReEgps.mean()
 ReUgps = ReUgps - ReUgps.mean()
 
+# Removing mean value from GRACE data
+# This process is already done for the data but the mean is for all the original data and now not all the initial data is being used
+# This needs further inspection
+ReNgrace = ReNgrace - ReNgrace.mean()
+ReEgrace = ReEgrace - ReEgrace.mean()
+ReUgrace = ReUgrace - ReUgrace.mean()
+
+# Calculating the RMS values
 rmse_gps = np.sqrt(np.mean((ReUgps.mean()-ReUgps)**2))
 rmse_grace = np.sqrt(np.mean((ReUgrace.mean()-ReUgrace)**2))
 rms_grace_gps = np.sqrt(np.mean((ReUgrace-ReUgps)**2))

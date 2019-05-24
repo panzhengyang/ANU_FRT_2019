@@ -21,7 +21,7 @@ print(gps_data.shape)
 # time north north_sigma east east_sigma up up_sigma 
 Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,1].astype(float) , grace_data[:,2].astype(float) , grace_data[:,3].astype(float), grace_data[:,4].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
 
-""" Example line for gps:
+''' Example line for gps:
 
 -------------------
 COVE 10JUL28 2010.5708 55405 1594 4 -112.8  -3815 -0.41548   4276712 0.86481  1687  0.35637  0.1800 0.00065 0.00067 0.00328  0.05829 -0.56488  0.04405
@@ -49,7 +49,7 @@ Meaning of columns:
 18.  0.05829  east-north correlation coefficient
 19. -0.56488  east-vertical correlation coefficient
 20.  0.04405  north-vertical correlation coefficient
-"""
+'''
 
 Tgps , EIgps , EFgps , NIgps , NFgps , UIgps , UFgps , ESgps , NSgps , USgps = gps_data[:,2].astype(float) , gps_data[:,7].astype(float) , gps_data[:,8].astype(float) , gps_data[:,9].astype(float) , gps_data[:,10].astype(float) , gps_data[:,11].astype(float) , gps_data[:,12].astype(float) , gps_data[:,14].astype(float) , gps_data[:,15].astype(float) , gps_data[:,16].astype(float) 
 

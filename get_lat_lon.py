@@ -51,7 +51,6 @@ for i in range(tn):
                 s.write( name[i] + '\t' + str(lat) + '\t' + str(lon) + '\n')
                 s.close()
                 sn += 1
-                print('Successful\t:\t'+str(sn)+'/'+str(tn))
                 
             else : 
                 print('Did not find lat lon for : ' + name[i] )
@@ -71,6 +70,8 @@ for i in range(tn):
         f.write( name[i] + '\t' + '3' + '\n')   # 3 for requests error
         f.close()
         fn += 1
+
+    print('\tSuccessful\t:\t'+str(sn)+'/'+str(tn)+'\t\tFalied\t:\t'+str(fn)+'/'+str(tn))
 
 
 print('\n\n')

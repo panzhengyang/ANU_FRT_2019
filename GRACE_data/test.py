@@ -24,11 +24,13 @@ mywidths = [8, 5, 3, 19, 19, 11, 11, 14, 14]
 
 filename = 'GSM-2_2011113-2011122_0010_GRGS_0080_03v3.anomaly'
 data = pd.read_fwf(filename,widths=mywidths,header=None,skiprows=3)
+npway = np.genfromtxt(filename,delimiter=mywidths,skip_header=3)
 np_data = np.asarray(data)
 new = data.to_numpy()
 nnew = new[:,1:7]
 
-print(np.array(nnew))
-np.savetxt('testfile.txt',np_data[:,1:7].astype(float),delimiter=' ',fmt='%d %d %.8f %.18f %.18f %.18f')
+print(npway[:,1:7])
+print(nnew)
+np.savetxt('testfile.txt',npway[:,1:7],delimiter=' ',fmt='%d %d %1.12e %1.12e %1.4e %1.4e')
 print('saved the file : '+filename)
 

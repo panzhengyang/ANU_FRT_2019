@@ -25,6 +25,6 @@ mywidths = [8, 5, 3, 19, 19, 11, 11, 14, 14]
 for filename in names :
     data = pd.read_fwf(filename,widths=mywidths,header=None,skiprows=3)
     np_data = np.asarray(data)
-    np.savetxt(filename,np_data[:,1:7],delimiter=' ',fmt='%d %d %.18f %.18f %.18f %.18f')
+    np.savetxt(filename,np_data[:,1:7],fmt='%d %d %1.12e %1.12e %1.4e %1.4e')
     print('saved the file : '+filename)
 

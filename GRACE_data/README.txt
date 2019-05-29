@@ -11,3 +11,6 @@ the shell script extracts the file names from the output of previous command and
 
 To extract all the files use
 tar xvzf GRGS_anomaly.tar.gz 
+
+The time stamps of each coefficient file is obtained from the file name and stored in time_decimal_years.txt by the script get_time_stamps.sh
+ 

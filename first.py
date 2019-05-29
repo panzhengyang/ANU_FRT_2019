@@ -83,7 +83,7 @@ data_flag = (Tgrace * 0).astype(bool)
 
 for i in range(np.size(Tgrace)):
     
-    selection_flag = np.logical_and( Tgps < FTgrace[i] , Tgps > BTgrace[i] ) 
+    selection_flag = np.logical_and( Tgps <= FTgrace[i] , Tgps > BTgrace[i] ) 
     data_flag[i] = selection_flag.sum()     # gets boolean elements, not integers 
     
     ReNgps[i] = Ngps[ selection_flag ].mean()

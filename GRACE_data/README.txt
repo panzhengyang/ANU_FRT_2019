@@ -7,4 +7,7 @@ is used to list all the file names in the .tar.gz file. The output also includes
 tar -ztvf GRGS_anomaly.tar.gz > list.txt 
 is used to save all the output from the previous command into a text file
 
-the shell script extracts the file names from the output of previous command and saves them in another file called names.txt 
+the shell script extracts the file names from the output of previous command and saves them in another file called names.txt
+
+To extract all the files use
+tar xvzf GRGS_anomaly.tar.gz 

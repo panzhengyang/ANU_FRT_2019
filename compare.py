@@ -1,8 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 
-grace_data_file_name = "ts_-25.037_128.296_50_edefn_1558487733.csv"
-gps_data_file_name = "WARA.IGS08.tenv3.txt"
+if len(sys.argv) < 3 :
+    print('No enough input aurguments')
+    print('Example usage is ')
+    print('python3 -W ignore this_file_name.py grace_time_series_data gps_time_series_data')     # ignore warnings
+    sys.exit()
+
+grace_data_file_name = sys.argv[1]
+gps_data_file_name = sys.argv[2]
 
 min_data_points = 3
 
@@ -10,7 +17,7 @@ grace_data = np.genfromtxt(grace_data_file_name ,
         delimiter = ' ' ,
         skip_header = 1)
 
-print(grace_data.shape)
+#print(grace_data.shape)
 
 gps_data = np.genfromtxt(gps_data_file_name ,
         skip_header = 1 ,
@@ -18,7 +25,7 @@ gps_data = np.genfromtxt(gps_data_file_name ,
 # The data has variable number of spaces seperating columns
 # None is the default setting which means any white space is taken as delimiter which include single space, many spaces, tab or many tab etc
 
-print(gps_data.shape)
+#print(gps_data.shape)
 
 # time north north_sigma east east_sigma up up_sigma 
 Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,1].astype(float) , grace_data[:,2].astype(float) , grace_data[:,3].astype(float), grace_data[:,4].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
@@ -133,23 +140,25 @@ if data_flag.sum() > min_data_points :
     ReUgrace = ReUgrace - ReUgrace.mean()
 
     # Calculating the RMS values
-    rmse_gps = np.sqrt(np.mean((ReUgps.mean()-ReUgps)**2))
-    rmse_grace = np.sqrt(np.mean((ReUgrace.mean()-ReUgrace)**2))
+    rms_gps = np.sqrt(np.mean((ReUgps.mean()-ReUgps)**2))
+    rms_grace = np.sqrt(np.mean((ReUgrace.mean()-ReUgrace)**2))
     rms_grace_gps = np.sqrt(np.mean((ReUgrace-ReUgps)**2))
-
-    print('\n\tRMS error of GPS is\t',rmse_gps)
-    print('\n\tRMS error of GRACE is\t',rmse_grace)
+    corr_coeff = np.corrcoef(ReUgps,ReUgrace)[1,0]      # corrcoef function gives 2*2 matrix and any element except diagonal ones are equal to corr coef
+    
+    print(rms_gps,'\t',rms_grace,'\t',rms_grace_gps,'\t',corr_coeff)
+    '''
+    print("\n\tRMS error of GPS is\t",rms_gps)
+    print('\n\tRMS error of GRACE is\t',rms_grace)
     print('\n\tRMS of GRACE-GPS is\t',rms_grace_gps)
-
-    print('\n\nCorcoef is \t',np.corrcoef(ReUgps,ReUgrace))
-    print('\n\n\nTry is\t',np.mean(ReUgrace*ReUgps)/(rmse_gps*rmse_grace))
+    print('\n\tCorrelation coefficient is\t',corr_coeff)
     #'''
+    '''
     std_gps = np.std(ReUgps)
     std_grace = np.std(ReUgrace)
     std_grace_gps = np.std(ReUgrace-ReUgps)
 
-    print('\n\tSTD error of GPS is\t',rmse_gps)
-    print('\n\tSTD error of GRACE is\t',rmse_grace)
+    print('\n\tSTD error of GPS is\t',rms_gps)
+    print('\n\tSTD error of GRACE is\t',rms_grace)
     print('\n\tSTD of GRACE-GPS is\t',rms_grace_gps)
     #'''
     '''

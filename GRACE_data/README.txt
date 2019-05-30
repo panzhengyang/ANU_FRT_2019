@@ -13,4 +13,8 @@ To extract all the files use
 tar xvzf GRGS_anomaly.tar.gz 
 
 The time stamps of each coefficient file is obtained from the file name and stored in time_decimal_years.txt by the script get_time_stamps.sh
- 
+
+The station_data.csv file is copied here and the first line which contains the header is deleted manually
+The station_data.csv file has the info about the lat lon at which the GRACE elastic deformation time series is required. 
+
+get_GRACE_lat_lon_time_series.sh runs the fortran executable which takes the spherical harmonic coeff files and generates the time series at different lat lon. 

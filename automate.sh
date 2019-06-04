@@ -14,14 +14,14 @@ do
   lat=${stringarray[1]}
   lon=${stringarray[2]}
   
-  echo $name
-  echo $lat 
-  echo $lon
+  #echo $name
+  #echo $lat 
+  #echo $lon
 
-  result="$( python3 -W compare.py "$grace_prefix$name.txt" "$gps_prefix$name.txt")"
+  result="$( python3 -W ignore compare.py "$grace_prefix$name.txt" "$gps_prefix$name.txt")"
   
-  echo "$name $lat $lon $result" 
-  echo "$name $lat $lon $result" >> $result_file_name
+  echo -e "$name\t$lat\t$lon\t$result" 
+  echo -e "$name\t$lat\t$lon\t$result" >> $result_file_name
 
 done < "$station_data_file"
 

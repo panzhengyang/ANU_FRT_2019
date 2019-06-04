@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
+import pandas as pd
 
 if len(sys.argv) < 3 :
     print('No enough input aurguments')
@@ -13,19 +14,33 @@ gps_data_file_name = sys.argv[2]
 
 min_data_points = 3
 
+'''
 grace_data = np.genfromtxt(grace_data_file_name , 
         delimiter = ' ' ,
-        skip_header = 1)
-
+        skip_header = 1)    # skipping one line because the time stamp for first line has error
+#'''
 #print(grace_data.shape)
-
+'''
 gps_data = np.genfromtxt(gps_data_file_name ,
         skip_header = 1 ,
         delimiter = None) 
 # The data has variable number of spaces seperating columns
 # None is the default setting which means any white space is taken as delimiter which include single space, many spaces, tab or many tab etc
-
+#'''
 #print(gps_data.shape)
+
+grace_data = pd.read_csv(grace_data_file_name,
+        delimiter=' ',
+        header=None,
+        skiprows=1,
+        dtype=float)
+grace_data = np.asarray(grace_data)
+
+gps_data = pd.read_csv(gps_data_file_name,
+        delimiter='\s+',
+        header=None,
+        skiprows=1)
+gps_data = np.asarray(gps_data)
 
 # time north north_sigma east east_sigma up up_sigma 
 Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,1].astype(float) , grace_data[:,2].astype(float) , grace_data[:,3].astype(float), grace_data[:,4].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
@@ -145,7 +160,7 @@ if data_flag.sum() > min_data_points :
     rms_grace_gps = np.sqrt(np.mean((ReUgrace-ReUgps)**2))
     corr_coeff = np.corrcoef(ReUgps,ReUgrace)[1,0]      # corrcoef function gives 2*2 matrix and any element except diagonal ones are equal to corr coef
     
-    print(rms_gps,'\t',rms_grace,'\t',rms_grace_gps,'\t',corr_coeff)
+    print(data_flag.sum(),'\t',"{0:.6f}".format(rms_gps),'\t',"{0:.6f}".format(rms_grace),'\t',"{0:.6f}".format(rms_grace_gps),'\t',"{0:.6f}".format(corr_coeff))
     '''
     print("\n\tRMS error of GPS is\t",rms_gps)
     print('\n\tRMS error of GRACE is\t',rms_grace)
@@ -213,4 +228,5 @@ if data_flag.sum() > min_data_points :
     plt.show()
 
 else : 
-    print('no sufficient data available')
+    #print('no sufficient data available')
+    print(data_flag.sum(),'\t',0.0,'\t',0.0,'\t',0.0,'\t',2.0)

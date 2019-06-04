@@ -1,23 +1,37 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
 grace_data_file_name = "ts_-25.037_128.296_50_edefn_1558487733.csv"
 gps_data_file_name = "WARA.IGS08.tenv3.txt"
 
 min_data_points = 3
 
+'''
 grace_data = np.genfromtxt(grace_data_file_name , 
         delimiter = ' ' ,
         skip_header = 1)
+#'''
+grace_data = pd.read_csv(grace_data_file_name,
+        delimiter=' ',
+        header=None,
+        skiprows=1,
+        dtype=float)
+grace_data = np.asarray(grace_data)
 
 print(grace_data.shape)
-
+'''
 gps_data = np.genfromtxt(gps_data_file_name ,
         skip_header = 1 ,
         delimiter = None) 
 # The data has variable number of spaces seperating columns
 # None is the default setting which means any white space is taken as delimiter which include single space, many spaces, tab or many tab etc
-
+#'''
+gps_data = pd.read_csv(gps_data_file_name,
+        delimiter='\s+',
+        header=None,
+        skiprows=1)
+gps_data = np.asarray(gps_data)
 print(gps_data.shape)
 
 # time north north_sigma east east_sigma up up_sigma 
@@ -152,11 +166,11 @@ if data_flag.sum() > min_data_points :
     print('\n\tSTD error of GRACE is\t',rmse_grace)
     print('\n\tSTD of GRACE-GPS is\t',rms_grace_gps)
     #'''
-    '''
+    #'''
     plt.figure("GRACE and Resampled GPS vertical")
+    plt.plot(Tgps,Ugps-Ugps.mean(),'.',label="GPS")
     plt.plot(Tgrace,Ugrace,label="GRACE")
     plt.plot(ReTgps,ReUgps,label="ReGPS")
-    plt.plot(Tgps,Ugps,'.',label="GPS")
     plt.title("GRACE and ReGPS at WARA")
     plt.xlabel("year")
     plt.ylabel("Vertical (mm)")

@@ -161,7 +161,7 @@ try:
         rms_grace_gps = np.sqrt(np.mean((ReUgrace-ReUgps)**2))
         corr_coeff = np.corrcoef(ReUgps,ReUgrace)[1,0]      # corrcoef function gives 2*2 matrix and any element except diagonal ones are equal to corr coef
         
-        print(data_flag.sum(),'\t',"{0:.6f}".format(rms_gps),'\t',"{0:.6f}".format(rms_grace),'\t',"{0:.6f}".format(rms_grace_gps),'\t',"{0:.6f}".format(corr_coeff))
+        print(data_flag.sum(),'\t',"{0:.6f}".format(rms_gps),'\t',"{0:.6f}".format(rms_grace),'\t',"{0:.6f}".format(rms_grace_gps),'\t',"{0:.6f}".format(corr_coeff),'\t','0')
         '''
         print("\n\tRMS error of GPS is\t",rms_gps)
         print('\n\tRMS error of GRACE is\t',rms_grace)
@@ -230,6 +230,6 @@ try:
 
     else : 
         #print('no sufficient data available')
-        print(data_flag.sum(),'\t',0.0,'\t',0.0,'\t',0.0,'\t',2.0)
+        print(data_flag.sum(),'\t',0.0,'\t',0.0,'\t',0.0,'\t',2.0,'\t','1')
 except:
-    print(-1.0,'\t',0.0,'\t',0.0,'\t',0.0,'\t',3.0)
+    print(-1.0,'\t',0.0,'\t',0.0,'\t',0.0,'\t',3.0,'\t','2')

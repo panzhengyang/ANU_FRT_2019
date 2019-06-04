@@ -1,0 +1,2 @@
+site YYMMMDD yyyy.yyyy __MJD week d reflon _e0(m) __east(m) ____n0(m) _north(m) u0(m) ____up(m) _ant(m) sig_e(m) sig_n(m) sig_u(m) __corr_en __corr_eu __corr_nu
+PNVZ 18APR10 2018.2724 58218 1996 2   24.3    400  0.474192   6179264  0.277056    86  0.800624  0.0000 0.000454 0.000632 0.001829  0.023514 -0.000587  0.142934

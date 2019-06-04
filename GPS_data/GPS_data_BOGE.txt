@@ -1,0 +1,2 @@
+site YYMMMDD yyyy.yyyy __MJD week d reflon _e0(m) __east(m) ____n0(m) _north(m) u0(m) ____up(m) _ant(m) sig_e(m) sig_n(m) sig_u(m) __corr_en __corr_eu __corr_nu
+BOGE 19APR06 2019.2608 58579 2047 6   21.0   2377  0.016662   5816222  0.553236   142  0.270769  0.0000 0.000503 0.000708 0.002093  0.075102  0.014338 -0.083000

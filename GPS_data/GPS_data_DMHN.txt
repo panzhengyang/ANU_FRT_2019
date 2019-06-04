@@ -1,0 +1,2 @@
+site YYMMMDD yyyy.yyyy __MJD week d reflon _e0(m) __east(m) ____n0(m) _north(m) u0(m) ____up(m) _ant(m) sig_e(m) sig_n(m) sig_u(m) __corr_en __corr_eu __corr_nu
+DMHN 12MAR08 2012.1834 55994 1678 4  -18.7   1132  0.764798   8524636  0.977226    55  0.452986  0.0000 0.000487 0.000514 0.002535  0.023854 -0.071418  0.306730

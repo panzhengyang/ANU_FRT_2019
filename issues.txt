@@ -1,0 +1,5 @@
+GPS location rms values sometimes go really high. They can be more than 10,000 mm. This can be due to many reasons. It can only be explained individually by looking into the GPS station time series. 
+Other than malfunctioning of GPS station other reasons can be earth quakes, breaking of iceburg (station can be on or close to ice berg)
+
+One way to differentiate Glacial Isostatic Adjustment is by checking the slope of time series. If slope is high then GIA is present.
+

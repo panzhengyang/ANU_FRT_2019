@@ -7,7 +7,7 @@ failed_station_file_name="failed_stations.txt"
 
 #rm $result_file_name 2> /dev/null
 #rm $failed_station_file_name 2> /dev/null
-echo "Station_code Lat Lon no_of_data_points rms_gps rms_grace rms_gps_grace corr_coeff error_message" >> $result_file_name
+echo "Station_code Lat Lon no_of_data_points rms_gps rms_grace rms_diff slope_gps slope_grace slope_diff corr_coeff error_message" >> $result_file_name
 
 while IFS= read -r string
 do

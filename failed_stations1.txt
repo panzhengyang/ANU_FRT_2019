@@ -1,0 +1,5 @@
+name	lat	lon
+AMU2	-89.999	-116.538
+AMUN	-89.998	138.978
+ZWEV	50.823	3.346
+name	lat	lon

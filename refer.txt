@@ -1,2 +1,5 @@
 For the map:
 https://wall.alphacoders.com/big.php?i=655007
+
+for calculating slope: 
+https://stackoverflow.com/questions/9538525/calculating-slopes-in-numpy-or-scipy

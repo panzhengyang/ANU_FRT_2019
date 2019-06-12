@@ -14,10 +14,10 @@ PSFILE="map.ps"
 plot_width="50"   # in cm
 margin_ratio="0.1"
 title_space="1"     # in cm
-data_file="rms_gps_grace.xy"
+data_file="rms_gps.xy"
 data_column="3"
 min_value=0
-max_value=50    # maximum value of rms for makecpt
+max_value=20    # maximum value of rms for makecpt
 
 temp_cpt_file="tmp.cpt"
 temp_data_file="temp.xy"

@@ -149,7 +149,7 @@ if data_flag.sum() > min_data_points :
     # Calculating the RMS values
     rmse_gps = np.sqrt(np.mean((ReUgps.mean()-ReUgps)**2))
     rmse_grace = np.sqrt(np.mean((ReUgrace.mean()-ReUgrace)**2))
-    rms_grace_gps = np.sqrt(np.mean((ReUgrace-ReUgps)**2))
+    rms_grace_gps = np.sqrt(np.mean(( ReUgrace-ReUgps )**2))
 
     print('\n\tRMS error of GPS is\t',rmse_gps)
     print('\n\tRMS error of GRACE is\t',rmse_grace)

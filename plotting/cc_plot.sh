@@ -3,14 +3,15 @@
 #         http://gmt.soest.hawaii.edu/doc/5.3.2/makecpt.html
 #         http://gmt.soest.hawaii.edu/doc/5.3.2/gmt.conf.html
 
-min_lon=105
-max_lon=165
-min_lat=-45
-max_lat=-10
+min_lon=-10
+max_lon=50
+min_lat=30
+max_lat=60
+title="Europe"
 PSFILE="map.ps"
 plot_width="50"   # in cm
 margin_ratio="0.1"
-title_space="5"     # in cm
+title_space="2"     # in cm
 data_file="cc.xy"
 cpt_file="cc.cpt"
 data_column="3"
@@ -42,11 +43,13 @@ common_additional_parameters="--PS_MEDIA=$page_width""c""x$page_height""c"
 #echo $ORIENTATION
 #echo $common_additional_parameters
 
-gmt pscoast $PROJ $LIMS -W0p -Dh -N1/0.25p -Gdarkseagreen2 -Scornflowerblue $XOFFSET $YOFFSET -K $ORIENTATION $common_additional_parameters > $PSFILE
-gmt psbasemap $PROJ $LIMS -Bxa20g10 -Bya30g5 -BWeSn \
+gmt pscoast $PROJ $LIMS -W0p -Dh -N1/0.25p $XOFFSET $YOFFSET -K $ORIENTATION $common_additional_parameters -BWSNE+t"$title" > $PSFILE
+gmt psbasemap $PROJ $LIMS -Bxa5g10 -Bya5g10 -BWeSn \
   -O -K $ORIENTATION $common_additional_parameters>> $PSFILE
 
 gmt psxy $data_file $PROJ $LIMS -Sc0.25c -W0.25p -C$cpt_file -O $ORIENTATION $common_additional_parameters >> $PSFILE
+
+#gmt colorbar -Dx8c/1c+w12c/0.5c+jTC+h -C$cpt_file 
 
 open -a preview $PSFILE
 #gs $PSFILE

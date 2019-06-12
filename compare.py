@@ -155,81 +155,23 @@ try:
         ReEgrace = ReEgrace - ReEgrace.mean()
         ReUgrace = ReUgrace - ReUgrace.mean()
 
-        # Calculating the RMS values
-        rms_gps = np.sqrt(np.mean((ReUgps.mean()-ReUgps)**2))
-        rms_grace = np.sqrt(np.mean((ReUgrace.mean()-ReUgrace)**2))
-        rms_grace_gps = np.sqrt(np.mean((ReUgrace-ReUgps)**2))
+        # Calculating the RMS values and standard deviation. 
+        rms_gps = np.sqrt(np.mean((ReUgps)**2))
+        rms_grace = np.sqrt(np.mean((ReUgrace)**2))
+        Udiff = ReUgrace - ReUgps
+        rms_diff = np.sqrt(np.mean((Udiff)**2))
+
+        # Calcualting the slope of time series which can be helpful to study Glacial Isostatic Adjustments
+        slope_gps = ( ( ReTgps-ReTgps.mean() ).dot( ReUgps-ReUgps.mean() ) )/( ( ReTgps-ReTgps.mean() ).dot( ReTgps-ReTgps.mean() ) )
+        slope_grace = ( ( ReTgrace-ReTgrace.mean() ).dot( ReUgrace-ReUgrace.mean() ) )/( ( ReTgrace-ReTgrace.mean() ).dot( ReTgrace-ReTgrace.mean() ) )
+        slope_diff = ( ( ReTgps-ReTgps.mean() ).dot( Udiff-Udiff.mean() ) )/( ( ReTgps-ReTgps.mean() ).dot( ReTgps-ReTgps.mean() ) )
+
         corr_coeff = np.corrcoef(ReUgps,ReUgrace)[1,0]      # corrcoef function gives 2*2 matrix and any element except diagonal ones are equal to corr coef
         
-        print(data_flag.sum(),'\t',"{0:.6f}".format(rms_gps),'\t',"{0:.6f}".format(rms_grace),'\t',"{0:.6f}".format(rms_grace_gps),'\t',"{0:.6f}".format(corr_coeff),'\t','0')
-        '''
-        print("\n\tRMS error of GPS is\t",rms_gps)
-        print('\n\tRMS error of GRACE is\t',rms_grace)
-        print('\n\tRMS of GRACE-GPS is\t',rms_grace_gps)
-        print('\n\tCorrelation coefficient is\t',corr_coeff)
-        #'''
-        '''
-        std_gps = np.std(ReUgps)
-        std_grace = np.std(ReUgrace)
-        std_grace_gps = np.std(ReUgrace-ReUgps)
-
-        print('\n\tSTD error of GPS is\t',rms_gps)
-        print('\n\tSTD error of GRACE is\t',rms_grace)
-        print('\n\tSTD of GRACE-GPS is\t',rms_grace_gps)
-        #'''
-        '''
-        plt.figure("GRACE and Resampled GPS vertical")
-        plt.plot(Tgrace,Ugrace,label="GRACE")
-        plt.plot(ReTgps,ReUgps,label="ReGPS")
-        plt.plot(Tgps,Ugps,'.',label="GPS")
-        plt.title("GRACE and ReGPS at WARA")
-        plt.xlabel("year")
-        plt.ylabel("Vertical (mm)")
-        plt.legend()
-        #'''
-        '''
-        plt.figure("Selected GRACE and GPS data")
-        plt.plot(ReTgps,ReUgps,label="GPS")
-        plt.plot(ReTgrace,ReUgrace,label="GRACE")
-        plt.xlabel("year")
-        plt.ylabel("Vertical (mm)")
-        plt.title("Selected data of GRACE and GPS")
-        plt.legend()
-        #'''
-        '''
-        plt.figure("GPS and GRACE vertical")
-        plt.plot(Tgrace,Ugrace,label="GRACE")
-        plt.plot(Tgps,Ugps,'.',label="GPS")
-        plt.title("GRACE and GPS at WARA")
-        plt.xlabel("year")
-        plt.ylabel("Vertical (mm)")
-        plt.legend()
-        #'''
-        '''
-        plt.figure("GPS and GRACE all data")
-        plt.subplot(231)
-        plt.plot(Tgps,Egps)
-        plt.title("GPS East")
-        plt.subplot(232)
-        plt.plot(Tgps,Ngps)
-        plt.title("GPS North")
-        plt.subplot(233)
-        plt.plot(Tgps,Ugps)
-        plt.title("GPS Up")
-        plt.subplot(234)
-        plt.plot(Tgrace,Egrace)
-        plt.title("GRACE East")
-        plt.subplot(235)
-        plt.plot(Tgrace,Ngrace)
-        plt.title("GRACE North")
-        plt.subplot(236)
-        plt.plot(Tgrace,Ugrace)
-        plt.title("GRACE Up")
-        #'''
-        plt.show()
+        print(data_flag.sum(),'\t',"{0:.6f}".format(rms_gps),'\t',"{0:.6f}".format(rms_grace),'\t',"{0:.6f}".format(rms_diff),'\t',"{0:.6f}".format(slope_gps),'\t',"{0:.6f}".format(slope_grace),'\t',"{0:.6f}".format(slope_diff),'\t',"{0:.6f}".format(corr_coeff),'\t','0')
 
     else : 
         #print('no sufficient data available')
-        print(data_flag.sum(),'\t',0.0,'\t',0.0,'\t',0.0,'\t',2.0,'\t','1')
+        print(data_flag.sum(),'\t',0.0,'\t',0.0,'\t',0.0,'\t',0.0,'\t',0.0,'\t',0.0,'\t',2.0,'\t','1')
 except:
-    print(-1.0,'\t',0.0,'\t',0.0,'\t',0.0,'\t',3.0,'\t','2')
+    print(-1.0,'\t',0.0,'\t',0.0,'\t',0.0,'\t',0.0,'\t',0.0,'\t',0.0,'\t',3.0,'\t','2')

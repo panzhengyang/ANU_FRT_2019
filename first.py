@@ -1,9 +1,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 import pandas as pd
+import sys
 
-grace_data_file_name = "ts_-25.037_128.296_50_edefn_1558487733.csv"
-gps_data_file_name = "WARA.IGS08.tenv3.txt"
+if len(sys.argv)<2:
+    print('No enough input aurguments')
+    print('Example usage is ')
+    print('python3 -W ignore station_code')
+    sys.exit()
+
+grace_data_file_name = "GRACE_data/GRACE_data_"+sys.argv[1]+".txt"
+gps_data_file_name = "GPS_data/GPS_data_"+sys.argv[1]+".txt"
 
 min_data_points = 3
 
@@ -33,6 +41,12 @@ gps_data = pd.read_csv(gps_data_file_name,
         skiprows=1)
 gps_data = np.asarray(gps_data)
 print(gps_data.shape)
+
+# getting the latitude and longitude of the station from station data file 
+df=pd.read_csv('station_data.csv',sep='\t')
+st=df[df['name'].str.match(sys.argv[1])]
+lat = float(st.iloc[0,1])
+lon = float(st.iloc[0,2])
 
 # time north north_sigma east east_sigma up up_sigma 
 Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,1].astype(float) , grace_data[:,2].astype(float) , grace_data[:,3].astype(float), grace_data[:,4].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
@@ -149,32 +163,45 @@ if data_flag.sum() > min_data_points :
     # Calculating the RMS values
     rmse_gps = np.sqrt(np.mean((ReUgps.mean()-ReUgps)**2))
     rmse_grace = np.sqrt(np.mean((ReUgrace.mean()-ReUgrace)**2))
-    rms_grace_gps = np.sqrt(np.mean(( ReUgrace-ReUgps )**2))
+    Udiff = ReUgrace - ReUgps
+    rms_diff = np.sqrt(np.mean(( Udiff )**2))
 
+    # Calcualting the slope of time series which can be helpful to study Glacial Isostatic Adjustments
+    slope_gps = ( ( ReTgps-ReTgps.mean() ).dot( ReUgps-ReUgps.mean() ) )/( ( ReTgps-ReTgps.mean() ).dot( ReTgps-ReTgps.mean() ) )
+    slope_grace = ( ( ReTgrace-ReTgrace.mean() ).dot( ReUgrace-ReUgrace.mean() ) )/( ( ReTgrace-ReTgrace.mean() ).dot( ReTgrace-ReTgrace.mean() ) )
+    slope_diff = ( ( ReTgps-ReTgps.mean() ).dot( Udiff-Udiff.mean() ) )/( ( ReTgps-ReTgps.mean() ).dot( ReTgps-ReTgps.mean() ) )
+
+    corr_coeff = np.corrcoef(ReUgps,ReUgrace)[1,0]      # corrcoef function gives 2*2 matrix and any element except diagonal ones are equal to corr coef
+    
     print('\n\tRMS error of GPS is\t',rmse_gps)
     print('\n\tRMS error of GRACE is\t',rmse_grace)
-    print('\n\tRMS of GRACE-GPS is\t',rms_grace_gps)
+    print('\n\tRMS of GRACE-GPS is\t',rms_diff)
+    print('\n\tSlope of GPS is\t',slope_gps)
+    print('\n\tSlope of GRACE is\t',slope_grace)
+    print('\n\tSlope of GRACE-GPS is\t',slope_diff)
+    print('\n\nCorcoef is \t',corr_coeff)
+    
 
-    print('\n\nCorcoef is \t',np.corrcoef(ReUgps,ReUgrace))
-    print('\n\n\nTry is\t',np.mean(ReUgrace*ReUgps)/(rmse_gps*rmse_grace))
-    #'''
-    std_gps = np.std(ReUgps)
-    std_grace = np.std(ReUgrace)
-    std_grace_gps = np.std(ReUgrace-ReUgps)
-
-    print('\n\tSTD error of GPS is\t',rmse_gps)
-    print('\n\tSTD error of GRACE is\t',rmse_grace)
-    print('\n\tSTD of GRACE-GPS is\t',rms_grace_gps)
-    #'''
     #'''
     plt.figure("GRACE and Resampled GPS vertical")
-    plt.plot(Tgps,Ugps-Ugps.mean(),'.',label="GPS")
-    plt.plot(Tgrace,Ugrace,label="GRACE")
-    plt.plot(ReTgps,ReUgps,label="ReGPS")
-    plt.title("GRACE and ReGPS at WARA")
+    plt.scatter(Tgps,Ugps-Ugps.mean(),label="GPS",s=0.1,c='b')
+    plt.plot(Tgrace,Ugrace,label="GRACE",linewidth=3,c='r')
+    plt.plot(ReTgps,ReUgps,label="ReGPS",linewidth=3,c='b')
+    plt.title("GRACE and ReGPS at "+sys.argv[1])
     plt.xlabel("year")
     plt.ylabel("Vertical (mm)")
     plt.legend()
+    plt.show(block=False)
+    #'''
+    #'''
+    plt.figure("Map")
+    img = mpimg.imread('images/map.png')
+    plt.imshow(img,extent=[-180,180,90,-90])
+    plt.scatter(lon,lat)
+    plt.title('Location of station '+sys.argv[1])
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
+    plt.show(block=False)
     #'''
     '''
     plt.figure("Selected GRACE and GPS data")

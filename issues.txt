@@ -3,3 +3,8 @@ Other than malfunctioning of GPS station other reasons can be earth quakes, brea
 
 One way to differentiate Glacial Isostatic Adjustment is by checking the slope of time series. If slope is high then GIA is present.
 
+GRACE time series datacan have errors starting from the year 2012 (April 2011), the time after which there was no thermal control on board. Refer keywords:
+Tapley, B., Flechtner, F., Watkins, M., & Bettadpur, S. 2015,
+GRACE Mission: Status and Prospects, Presented at: Grace Science Team Meeting 2015, Austin, Texas. 
+
+

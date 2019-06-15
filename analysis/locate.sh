@@ -2,7 +2,7 @@
 #       https://stackoverflow.com/questions/1378274/in-a-bash-script-how-can-i-exit-the-entire-script-if-a-certain-condition-occurs
 
 plot_width="50"
-margin_ratio="0.05"
+margin_ratio="0.5"
 title_space="2"
 title="Title"
 bottom_space="4"

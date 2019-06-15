@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 import sys
 import pandas as pd
 
+# Only data in this intervel will be considered
+Tmax = 2011.33333333
+Tmin = 2001.0
+
 if len(sys.argv) < 3 :
     print('No enough input aurguments')
     print('Example usage is ')
@@ -45,6 +49,17 @@ try:
 
     # time north north_sigma east east_sigma up up_sigma 
     Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,1].astype(float) , grace_data[:,2].astype(float) , grace_data[:,3].astype(float), grace_data[:,4].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
+    
+    # Selecting the GRACE data which is only in a particular time intervel 
+    grace_select_flag = np.logical_and((Tgrace > Tmin),(Tgrace < Tmax))
+    
+    Tgrace = Tgrace[grace_select_flag]
+    Ngrace = Ngrace[grace_select_flag]
+    NSgrace = NSgrace[grace_select_flag]
+    Egrace = Egrace[grace_select_flag]
+    ESgrace = ESgrace[grace_select_flag]
+    Ugrace = Ugrace[grace_select_flag]
+    USgrace = USgrace[grace_select_flag]
 
     ''' Example line for gps:
 
@@ -155,7 +170,7 @@ try:
         ReEgrace = ReEgrace - ReEgrace.mean()
         ReUgrace = ReUgrace - ReUgrace.mean()
 
-        # Calculating the RMS values and standard deviation. 
+        # Calculating the RMS values  
         rms_gps = np.sqrt(np.mean((ReUgps)**2))
         rms_grace = np.sqrt(np.mean((ReUgrace)**2))
         Udiff = ReUgrace - ReUgps

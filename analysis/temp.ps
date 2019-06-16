@@ -1,11 +1,11 @@
 %!PS-Adobe-3.0
 %%BoundingBox: 0 0 2835 9931
-%%HiResBoundingBox: 0 0 2834.65 9931.17             
-%%Title: GMT v5.4.5 [64-bit] Document from pscoast
+%%HiResBoundingBox: 0 0 2834.65 9931.17
+%%Title: GMT v5.2.1 (r15220) [64-bit] [MP] Document from pscoast
 %%Creator: GMT5
-%%For: unknown
+%%For: happy
 %%DocumentNeededResources: font Helvetica
-%%CreationDate: Fri Jun 14 15:19:42 2019
+%%CreationDate: Sun Jun 16 11:20:53 2019
 %%LanguageLevel: 2
 %%DocumentData: Clean7Bit
 %%Orientation: Portrait
@@ -272,6 +272,7 @@ end
     PSL_heights psl_k PSL_height put
   } for
 } def
+%%%%%%%%%%%%%%%%%%% CURVED BASELINE TEXT PLACEMENT FUNCTIONS
 /PSL_curved_path_labels
 { /psl_bits exch def
   /PSL_placetext psl_bits 2 and 2 eq def
@@ -522,6 +523,7 @@ end
 {PSL_xp 0 get PSL_yp 0 get M
   1 1 j { /ii exch def PSL_xp ii get PSL_yp ii get L} for
 } def
+%%%%%%%%%%%%%%%%%%% DRAW BASELINE TEXT SEGMENT LINES
 /PSL_draw_path_lines
 {
   /PSL_n_paths1 PSL_n_paths 1 sub def
@@ -547,6 +549,7 @@ end
   } for
   U
 } def
+%%%%%%%%%%%%%%%%%%% STRAIGHT BASELINE TEXT PLACEMENT FUNCTIONS
 /PSL_straight_path_labels
 {
   /psl_bits exch def
@@ -663,8 +666,8 @@ O0
 11811 42561 TM
 
 % PostScript produced by:
-%@GMT: pscoast -JQ50c -R-63.896/-40.198/-10.864/70.74 -W0p -Dc -A10000 -N1/0.05p -BWSNE+tTitle -X25.0c -Y90.087433539c -K -P --PS_MEDIA=100.0cx350.349734156c
-%@PROJ: eqc -63.89600000 -40.19800000 -10.86400000 70.74000000 -1317550.171 1317550.171 -1208023.045 7865937.977 +proj=eqc +lat_ts=0 +lat_0=0 +lon_0=-52.047 +x_0=0 +y_0=0 +a=6371007.181 +b=6371007.180918 +units=m +no_defs
+%%GMT: pscoast -JQ50c -R-63.896/-40.198/-10.864/70.74 -W0p -Dc -A10000 -N1/0.05p -BWSNE+tTitle -X25.0c -Y90.087433539c -K -P --PS_MEDIA=100.0cx350.349734156c
+%%PROJ: eqc -63.89600000 -40.19800000 -10.86400000 70.74000000 -1317550.171 1317550.171 -1208023.045 7865937.977 +proj=eqc +lat_ts=0 +lat_0=0 +lon_0=-52.047 +x_0=0 +y_0=0 +a=6371007.181 +b=6371007.180918 +units=m +no_defs
 %%BeginObject PSL_Layer_1
 0 setlinecap
 0 setlinejoin
@@ -1169,8 +1172,8 @@ O0
 0 0 TM
 
 % PostScript produced by:
-%@GMT: psbasemap -JQ50c -R-63.896/-40.198/-10.864/70.74 -Bxa20g10 -Bya30g5 -BWeSn -O -K -P --PS_MEDIA=100.0cx350.349734156c
-%@PROJ: eqc -63.89600000 -40.19800000 -10.86400000 70.74000000 -1317550.171 1317550.171 -1208023.045 7865937.977 +proj=eqc +lat_ts=0 +lat_0=0 +lon_0=-52.047 +x_0=0 +y_0=0 +a=6371007.181 +b=6371007.180918 +units=m +no_defs
+%%GMT: psbasemap -JQ50c -R-63.896/-40.198/-10.864/70.74 -Bxa20g10 -Bya30g5 -BWeSn -O -K -P --PS_MEDIA=100.0cx350.349734156c
+%%PROJ: eqc -63.89600000 -40.19800000 -10.86400000 70.74000000 -1317550.171 1317550.171 -1208023.045 7865937.977 +proj=eqc +lat_ts=0 +lat_0=0 +lon_0=-52.047 +x_0=0 +y_0=0 +a=6371007.181 +b=6371007.180918 +units=m +no_defs
 %%BeginObject PSL_Layer_2
 0 setlinecap
 0 setlinejoin
@@ -1243,6 +1246,12 @@ N 0 40733 M -83 0 D S
 N 23622 40733 M 83 0 D S
 N 0 70637 M -83 0 D S
 N 23622 70637 M 83 0 D S
+3884 -167 M PSL_font_encode 0 get 0 eq {ISOLatin1+_Encoding /Helvetica /Helvetica PSL_reencode PSL_font_encode 0 1 put} if
+200 F0
+(-60š) tc Z
+-167 10829 M (0š) mr Z
+-167 40733 M (30š) mr Z
+-167 70637 M (60š) mr Z
 83 W
 1 A
 N -42 0 M 0 10829 D S
@@ -1271,12 +1280,6 @@ N 23705 81342 M -23788 0 D S
 N 23705 81426 M -23788 0 D S
 N 0 81426 M 0 -81509 D S
 N -83 81426 M 0 -81509 D S
-3884 -167 M PSL_font_encode 0 get 0 eq {ISOLatin1+_Encoding /Helvetica /Helvetica PSL_reencode PSL_font_encode 0 1 put} if
-200 F0
-(-60š) tc Z
--167 10829 M (0š) mr Z
--167 40733 M (30š) mr Z
--167 70637 M (60š) mr Z
 %%EndObject
 0 A
 FQ
@@ -1284,8 +1287,8 @@ O0
 0 0 TM
 
 % PostScript produced by:
-%@GMT: psxy my_great_temp.xy -JQ50c -R-63.896/-40.198/-10.864/70.74 -Sc0.25c -W0.25p -Cmy_great_temp.cpt -O -K -P --PS_MEDIA=100.0cx350.349734156c
-%@PROJ: eqc -63.89600000 -40.19800000 -10.86400000 70.74000000 -1317550.171 1317550.171 -1208023.045 7865937.977 +proj=eqc +lat_ts=0 +lat_0=0 +lon_0=-52.047 +x_0=0 +y_0=0 +a=6371007.181 +b=6371007.180918 +units=m +no_defs
+%%GMT: psxy my_great_temp.xy -JQ50c -R-63.896/-40.198/-10.864/70.74 -Sc0.25c -W0.25p -Cmy_great_temp.cpt -O -K -P --PS_MEDIA=100.0cx350.349734156c
+%%PROJ: eqc -63.89600000 -40.19800000 -10.86400000 70.74000000 -1317550.171 1317550.171 -1208023.045 7865937.977 +proj=eqc +lat_ts=0 +lat_0=0 +lon_0=-52.047 +x_0=0 +y_0=0 +a=6371007.181 +b=6371007.180918 +units=m +no_defs
 %%BeginObject PSL_Layer_3
 0 setlinecap
 0 setlinejoin
@@ -1295,7 +1298,6 @@ clipsave
 23622 0 D
 0 81342 D
 -23622 0 D
-P
 PSL_clip N
 4 W
 V
@@ -1337,8 +1339,8 @@ O0
 0 0 TM
 
 % PostScript produced by:
-%@GMT: psscale --PS_MEDIA=100.0cx350.349734156c -Cmy_great_temp.cpt -Ba -O -Dx0c/-2.00000000000000000000c -P
-%@PROJ: xy 0.00000000 10.00000000 0.00000000 0.19685039 0.000 10.000 0.000 0.197 +xy
+%%GMT: psscale --PS_MEDIA=100.0cx350.349734156c -Cmy_great_temp.cpt -Ba -O -Dx0c/-2.00000000000000000000c+w50c/0.5c+h -P
+%%PROJ: xy 0.00000000 10.00000000 0.00000000 0.19685039 0.000 10.000 0.000 0.197 +xy +a=6378137.000 +b=6356752.314245 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
 %%BeginObject PSL_Layer_4
 0 setlinecap
 0 setlinejoin

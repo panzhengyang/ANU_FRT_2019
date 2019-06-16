@@ -4,6 +4,9 @@ import matplotlib.image as mpimg
 import pandas as pd
 import sys
 
+Tmax = 2011.33333333
+Tmin = 2001.0
+
 if len(sys.argv)<2:
     print('No enough input aurguments')
     print('Example usage is ')
@@ -27,7 +30,7 @@ grace_data = pd.read_csv(grace_data_file_name,
         dtype=float)
 grace_data = np.asarray(grace_data)
 
-print(grace_data.shape)
+#print(grace_data.shape)
 '''
 gps_data = np.genfromtxt(gps_data_file_name ,
         skip_header = 1 ,
@@ -40,7 +43,7 @@ gps_data = pd.read_csv(gps_data_file_name,
         header=None,
         skiprows=1)
 gps_data = np.asarray(gps_data)
-print(gps_data.shape)
+#print(gps_data.shape)
 
 # getting the latitude and longitude of the station from station data file 
 df=pd.read_csv('station_data.csv',sep='\t')
@@ -50,6 +53,18 @@ lon = float(st.iloc[0,2])
 
 # time north north_sigma east east_sigma up up_sigma 
 Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,1].astype(float) , grace_data[:,2].astype(float) , grace_data[:,3].astype(float), grace_data[:,4].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
+
+
+## Selecting the GRACE data which is only in a particular time intervel 
+#grace_select_flag = np.logical_and((Tgrace > Tmin),(Tgrace < Tmax))
+#
+#Tgrace = Tgrace[grace_select_flag]
+#Ngrace = Ngrace[grace_select_flag]
+#NSgrace = NSgrace[grace_select_flag]
+#Egrace = Egrace[grace_select_flag]
+#ESgrace = ESgrace[grace_select_flag]
+#Ugrace = Ugrace[grace_select_flag]
+#USgrace = USgrace[grace_select_flag]
 
 ''' Example line for gps:
 
@@ -90,12 +105,11 @@ Ugps = UIgps.astype(float) + UFgps.astype(float)
 # Converting units m to mm
 Egps , Ngps , Ugps = Egps*1000 , Ngps*1000 , Ugps*1000 
 
-# Averaging GPS data at times when GRACE data is available
 
 # DTgrace is the difference of consecutive elements in Tgrace
-DTgrace = np.diff(Tgrace)       # length of DTgrace is one less than Tgrace
+DTgrace = np.diff(Tgrace)       # length of DTgrace is one less than ReTgrace
 
-# Forward Tgrace and Backward Tgrace are the time bounds(upper and lower) of at each Tgrace for taking mean of GPS data at each GRACE data
+# Forward ReTgrace and Backward ReTgrace are the time bounds(upper and lower) of at each ReTgrace for taking mean of GPS data at each GRACE data
 # DTgrace is padded since it is one element less than Tgrace
 FTgrace = Tgrace + np.pad(DTgrace,(0,1),'constant',constant_values = (0,0)) / 2          
 BTgrace = Tgrace - np.pad(DTgrace,(1,0),'constant',constant_values = (0,0)) / 2
@@ -145,46 +159,52 @@ if data_flag.sum() > min_data_points :
     ReNSgrace = NSgrace[data_flag]
     ReESgrace = ESgrace[data_flag]
     ReUSgrace = USgrace[data_flag]
+    
+    # Time_range_flag, trf to select elements only in the range of Tmin and Tmax
+    trf = np.logical_and(ReTgrace > Tmin , ReTgrace < Tmax)
+
+    # Storing the mean value of Ugps as this value is required later during plotting and cannot be acquired after the later steps
+    Ugps_mean = ReUgps.mean()
 
     # Removing mean value from GPS data
     # This process should not be done initially as mean should be calculated based on data when GRACE data is not present
     # This needs further inspection
-    ReNgps = ReNgps - ReNgps.mean()
-    ReEgps = ReEgps - ReEgps.mean()
-    ReUgps = ReUgps - ReUgps.mean()
+    ReNgps = ReNgps - ReNgps[trf].mean()
+    ReEgps = ReEgps - ReEgps[trf].mean()
+    ReUgps = ReUgps - ReUgps[trf].mean()
 
     # Removing mean value from GRACE data
     # This process is already done for the data but the mean is for all the original data and now not all the initial data is being used
     # This needs further inspection
-    ReNgrace = ReNgrace - ReNgrace.mean()
-    ReEgrace = ReEgrace - ReEgrace.mean()
-    ReUgrace = ReUgrace - ReUgrace.mean()
+    ReNgrace = ReNgrace - ReNgrace[trf].mean()
+    ReEgrace = ReEgrace - ReEgrace[trf].mean()
+    ReUgrace = ReUgrace - ReUgrace[trf].mean()
 
     # Calculating the RMS values
-    rmse_gps = np.sqrt(np.mean((ReUgps.mean()-ReUgps)**2))
-    rmse_grace = np.sqrt(np.mean((ReUgrace.mean()-ReUgrace)**2))
+    rmse_gps = np.sqrt(np.mean((ReUgps[trf].mean()-ReUgps[trf])**2))
+    rmse_grace = np.sqrt(np.mean((ReUgrace[trf].mean()-ReUgrace[trf])**2))
     Udiff = ReUgrace - ReUgps
-    rms_diff = np.sqrt(np.mean(( Udiff )**2))
+    rms_diff = np.sqrt(np.mean(( Udiff[trf] )**2))
 
     # Calcualting the slope of time series which can be helpful to study Glacial Isostatic Adjustments
-    slope_gps = ( ( ReTgps-ReTgps.mean() ).dot( ReUgps-ReUgps.mean() ) )/( ( ReTgps-ReTgps.mean() ).dot( ReTgps-ReTgps.mean() ) )
-    slope_grace = ( ( ReTgrace-ReTgrace.mean() ).dot( ReUgrace-ReUgrace.mean() ) )/( ( ReTgrace-ReTgrace.mean() ).dot( ReTgrace-ReTgrace.mean() ) )
-    slope_diff = ( ( ReTgps-ReTgps.mean() ).dot( Udiff-Udiff.mean() ) )/( ( ReTgps-ReTgps.mean() ).dot( ReTgps-ReTgps.mean() ) )
+    slope_gps = ( ( ReTgps[trf]-ReTgps[trf].mean() ).dot( ReUgps[trf]-ReUgps[trf].mean() ) )/( ( ReTgps[trf]-ReTgps[trf].mean() ).dot( ReTgps[trf]-ReTgps[trf].mean() ) )
+    slope_grace = ( ( ReTgrace[trf]-ReTgrace[trf].mean() ).dot( ReUgrace[trf]-ReUgrace[trf].mean() ) )/( ( ReTgrace[trf]-ReTgrace[trf].mean() ).dot( ReTgrace[trf]-ReTgrace[trf].mean() ) )
+    slope_diff = ( ( ReTgps[trf]-ReTgps[trf].mean() ).dot( Udiff[trf]-Udiff[trf].mean() ) )/( ( ReTgps[trf]-ReTgps[trf].mean() ).dot( ReTgps[trf]-ReTgps[trf].mean() ) )
 
-    corr_coeff = np.corrcoef(ReUgps,ReUgrace)[1,0]      # corrcoef function gives 2*2 matrix and any element except diagonal ones are equal to corr coef
+    corr_coeff = np.corrcoef(ReUgps[trf],ReUgrace[trf])[1,0]      # corrcoef function gives 2*2 matrix and any element except diagonal ones are equal to corr coef
     
-    print('\n\tRMS error of GPS is\t',rmse_gps)
-    print('\n\tRMS error of GRACE is\t',rmse_grace)
-    print('\n\tRMS of GRACE-GPS is\t',rms_diff)
-    print('\n\tSlope of GPS is\t',slope_gps)
-    print('\n\tSlope of GRACE is\t',slope_grace)
-    print('\n\tSlope of GRACE-GPS is\t',slope_diff)
-    print('\n\nCorcoef is \t',corr_coeff)
+    print('RMS error of GPS is\t',rmse_gps)
+    print('RMS error of GRACE is\t',rmse_grace)
+    print('RMS of GRACE-GPS is\t',rms_diff)
+    print('Slope of GPS is\t\t',slope_gps)
+    print('Slope of GRACE is\t',slope_grace)
+    print('Slope of GRACE-GPS is\t',slope_diff)
+    print('Corcoef is \t',corr_coeff)
     
 
     #'''
     plt.figure("GRACE and Resampled GPS vertical")
-    plt.scatter(Tgps,Ugps-Ugps.mean(),label="GPS",s=0.1,c='b')
+    plt.scatter(Tgps,Ugps-Ugps_mean,label="GPS",s=0.1,c='b')
     plt.plot(Tgrace,Ugrace,label="GRACE",linewidth=3,c='r')
     plt.plot(ReTgps,ReUgps,label="ReGPS",linewidth=3,c='b')
     plt.title("GRACE and ReGPS at "+sys.argv[1])

@@ -1,3 +1,7 @@
+# The results of this code will be slightly different from compare.py. This is because the FTgrace, BTgrace in compare.py are calculated after the Tgrace is filtered for the Tmin, Tmax range. 
+# In this file FTgrace and BTgrace are calculated befre filtering Tgrace and filtering is done later while calculations of rms and slope. This is done so that the data is not lost (by initial filtering) and can be shown in the plots even though it is not considered for calculation.
+# The difference arrises when calculating DTgrace, when filtered in the first, the last FTgrace and first BTgrace elements are based on the padded 0 of DTgrace. When the filtering is not done, the corresponding element of FTgrace and BTgrace do not use the padded 0, rather use the actual next/previous time stamp in Tgrace. 
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
@@ -26,7 +30,7 @@ grace_data = np.genfromtxt(grace_data_file_name ,
 grace_data = pd.read_csv(grace_data_file_name,
         delimiter=' ',
         header=None,
-        skiprows=1,
+        skiprows=0,
         dtype=float)
 grace_data = np.asarray(grace_data)
 
@@ -50,21 +54,23 @@ df=pd.read_csv('station_data.csv',sep='\t')
 st=df[df['name'].str.match(sys.argv[1])]
 lat = float(st.iloc[0,1])
 lon = float(st.iloc[0,2])
+print(lat,lon)
 
 # time north north_sigma east east_sigma up up_sigma 
 Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,1].astype(float) , grace_data[:,2].astype(float) , grace_data[:,3].astype(float), grace_data[:,4].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
 
+'''
+# Selecting the GRACE data which is only in a particular time intervel 
+grace_select_flag = np.logical_and((Tgrace > Tmin),(Tgrace < Tmax))
 
-## Selecting the GRACE data which is only in a particular time intervel 
-#grace_select_flag = np.logical_and((Tgrace > Tmin),(Tgrace < Tmax))
-#
-#Tgrace = Tgrace[grace_select_flag]
-#Ngrace = Ngrace[grace_select_flag]
-#NSgrace = NSgrace[grace_select_flag]
-#Egrace = Egrace[grace_select_flag]
-#ESgrace = ESgrace[grace_select_flag]
-#Ugrace = Ugrace[grace_select_flag]
-#USgrace = USgrace[grace_select_flag]
+Tgrace = Tgrace[grace_select_flag]
+Ngrace = Ngrace[grace_select_flag]
+NSgrace = NSgrace[grace_select_flag]
+Egrace = Egrace[grace_select_flag]
+ESgrace = ESgrace[grace_select_flag]
+Ugrace = Ugrace[grace_select_flag]
+USgrace = USgrace[grace_select_flag]
+#'''
 
 ''' Example line for gps:
 
@@ -114,7 +120,9 @@ DTgrace = np.diff(Tgrace)       # length of DTgrace is one less than ReTgrace
 FTgrace = Tgrace + np.pad(DTgrace,(0,1),'constant',constant_values = (0,0)) / 2          
 BTgrace = Tgrace - np.pad(DTgrace,(1,0),'constant',constant_values = (0,0)) / 2
 
+
 # I don't know how to avoid this loop
+
 
 ReTgps = Tgrace
 ReNgps = Ngrace * 0
@@ -160,12 +168,13 @@ if data_flag.sum() > min_data_points :
     ReESgrace = ESgrace[data_flag]
     ReUSgrace = USgrace[data_flag]
     
-    # Time_range_flag, trf to select elements only in the range of Tmin and Tmax
+    
+    # time_range_flag, trf is to select only the samples within the range of (Tmin,Tmax)
     trf = np.logical_and(ReTgrace > Tmin , ReTgrace < Tmax)
-
+    
     # Storing the mean value of Ugps as this value is required later during plotting and cannot be acquired after the later steps
-    Ugps_mean = ReUgps.mean()
-
+    Ugps_mean = ReUgps[trf].mean()
+    
     # Removing mean value from GPS data
     # This process should not be done initially as mean should be calculated based on data when GRACE data is not present
     # This needs further inspection
@@ -193,6 +202,7 @@ if data_flag.sum() > min_data_points :
 
     corr_coeff = np.corrcoef(ReUgps[trf],ReUgrace[trf])[1,0]      # corrcoef function gives 2*2 matrix and any element except diagonal ones are equal to corr coef
     
+    print('No of data points:\t',trf.sum())
     print('RMS error of GPS is\t',rmse_gps)
     print('RMS error of GRACE is\t',rmse_grace)
     print('RMS of GRACE-GPS is\t',rms_diff)
@@ -204,9 +214,9 @@ if data_flag.sum() > min_data_points :
 
     #'''
     plt.figure("GRACE and Resampled GPS vertical")
-    plt.scatter(Tgps,Ugps-Ugps_mean,label="GPS",s=0.1,c='b')
-    plt.plot(Tgrace,Ugrace,label="GRACE",linewidth=3,c='r')
-    plt.plot(ReTgps,ReUgps,label="ReGPS",linewidth=3,c='b')
+    plt.scatter(Tgps,Ugps-Ugps_mean,label="GPS",s=0.05,c='b')
+    plt.plot(ReTgrace,ReUgrace,label="GRACE",linewidth=2,c='r')
+    plt.plot(ReTgps,ReUgps,label="ReGPS",linewidth=2,c='b')
     plt.title("GRACE and ReGPS at "+sys.argv[1])
     plt.xlabel("year")
     plt.ylabel("Vertical (mm)")
@@ -216,7 +226,7 @@ if data_flag.sum() > min_data_points :
     #'''
     plt.figure("Map")
     img = mpimg.imread('images/map.png')
-    plt.imshow(img,extent=[-180,180,90,-90])
+    plt.imshow(img,extent=[-180,180,-90,90])
     plt.scatter(lon,lat)
     plt.title('Location of station '+sys.argv[1])
     plt.xlabel('Longitude')

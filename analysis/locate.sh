@@ -2,12 +2,14 @@
 #       https://stackoverflow.com/questions/1378274/in-a-bash-script-how-can-i-exit-the-entire-script-if-a-certain-condition-occurs
 
 plot_width="50"
-margin_ratio="0.5"
+margin_ratio="0.11111111111"
 title_space="2"
 title="Title"
 bottom_space="4"
 min_value="0"
 max_value="10"
+color_scheme="polar"
+marker_size=0.5
 
 if [ -z $2 ]
 then
@@ -24,8 +26,26 @@ max_lon="$( sort -k1 -n $temp_data_file | tail -1 | awk '{ print $1 }' )"
 min_lat="$( sort -k2 -n $temp_data_file | head -1 | awk '{ print $2 }' )"
 max_lat="$( sort -k2 -n $temp_data_file | tail -1 | awk '{ print $2 }' )"
 
-#max_value="$( sort -k$2 -n $temp_data_file | tail -1 | awk '{ print $3 }' )"
-#min_value="$( sort -k$2 -n $temp_data_file | head -1 | awk '{ print $3 }' )"
+if [ -z $4 ]
+then
+  max_value="$( sort -k3 -n $temp_data_file | tail -1 | awk '{ print $3 }' )"
+  min_value="$( sort -k3 -n $temp_data_file | head -1 | awk '{ print $3 }' )"
+  echo auto assigning min max values as $min_value and $max_value
+else
+  max_value=$4
+  min_value=$3
+  echo min max values obtained
+fi
+
+# size of 5th aurgument
+size=${#5}
+if [ $size -gt 0 ]
+then
+  color_scheme=$5
+#else
+#  color_scheme=$color_scheme
+#  echo $color_scheme
+fi 
 
 PSFILE="temp.ps"
 
@@ -49,12 +69,12 @@ gmt pscoast $PROJ $LIMS $pscoast_parameters $XOFFSET $YOFFSET -K $ORIENTATION $c
 gmt psbasemap $PROJ $LIMS -Bxa20g10 -Bya30g5 -BWeSn \
     -O -K $ORIENTATION $common_additional_parameters>> $PSFILE
 
-gmt makecpt -Cpolar -T$min_value/$max_value/500+ > $temp_cpt_file
-gmt psxy $temp_data_file $PROJ $LIMS -Sc0.25c -W0.25p -C$temp_cpt_file -O -K $ORIENTATION $common_additional_parameters >> $PSFILE
+gmt makecpt -C$color_scheme -T$min_value/$max_value/500+ > $temp_cpt_file
+gmt psxy $temp_data_file $PROJ $LIMS -Sc$marker_size"c" -W0.25p -C$temp_cpt_file -O -K $ORIENTATION $common_additional_parameters >> $PSFILE
 
 scale_yoffset=$(echo -$bottom_space/2 | bc -l )
 gmt psscale $common_additional_parameters -C$temp_cpt_file -Ba -O -Dx0c/"$scale_yoffset"c+w"$plot_width"c/0.5c+h  -P >> $PSFILE
 
-#open -a preview $PSFILE
+open -a preview $PSFILE
 
 rm $temp_data_file $temp_cpt_file 2> /dev/null

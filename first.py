@@ -18,7 +18,7 @@ if len(sys.argv)<2:
     sys.exit()
 
 grace_data_file_name = "GRACE_data/GRACE_data_"+sys.argv[1]+".txt"
-gps_data_file_name = "GPS_data/GPS_data_"+sys.argv[1]+".txt"
+gps_data_file_name = "NDL_GPS_data/GPS_data_"+sys.argv[1]+".txt"
 
 min_data_points = 3
 

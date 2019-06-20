@@ -7,4 +7,5 @@ GRACE time series datacan have errors starting from the year 2012 (April 2011), 
 Tapley, B., Flechtner, F., Watkins, M., & Bettadpur, S. 2015,
 GRACE Mission: Status and Prospects, Presented at: Grace Science Team Meeting 2015, Austin, Texas. 
 
-
+Observations:
+In near south Brazil GPS time series is sloping downwards, GRACE is not able to have such high enough downward slope.

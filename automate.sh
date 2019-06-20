@@ -1,5 +1,5 @@
 
-gps_prefix="GPS_data/GPS_data_"
+gps_prefix="NDL_GPS_data/GPS_data_"
 grace_prefix="GRACE_data/GRACE_data_"
 station_data_file="station_data.csv"
 result_file_name="result.txt"

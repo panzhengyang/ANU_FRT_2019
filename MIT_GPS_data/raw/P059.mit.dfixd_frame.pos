@@ -1,0 +1,43 @@
+PBO Station Position Time Series. Reference Frame : IGS08
+Format Version: 1.1.0
+4-character ID: P059
+Station name  : PointArenaCN2006
+First Epoch   : 20120307 115900
+Last Epoch    : 20140208 115900
+Release Data  : 20150104 065401
+XYZ Reference position :  -2758534.76928 -4132153.92927  3986124.92382 (IGS08)
+NEU Reference position :    38.9283466784  236.2738011959  -11.30154 (IGS08/WGS84)
+Start Field Description
+YYYYMMDD      Year, month, day for the given position epoch
+HHMMSS        Hour, minute, second for the given position epoch
+JJJJJ.JJJJJ   Modified Julian day for the given position epoch
+X             X coordinate, Specified Reference Frame, meters
+Y             Y coordinate, Specified Reference Frame, meters
+Z             Z coordinate, Specified Reference Frame, meters
+Sx            Standard deviation of the X position, meters
+Sy            Standard deviation of the Y position, meters
+Sz            Standard deviation of the Z position, meters
+Rxy           Correlation of the X and Y position
+Rxz           Correlation of the X and Z position
+Ryz           Correlation of the Y and Z position
+Nlat          North latitude, WGS-84 ellipsoid, decimal degrees
+Elong         East longitude, WGS-84 ellipsoid, decimal degrees
+Height (Up)   Height relative to WGS-84 ellipsoid, m
+dN            Difference in North component from NEU reference position, meters
+dE            Difference in East component from NEU reference position, meters
+du            Difference in vertical component from NEU reference position, meters
+Sn            Standard deviation of dN, meters
+Se            Standard deviation of dE, meters
+Su            Standard deviation of dU, meters
+Rne           Correlation of dN and dE
+Rnu           Correlation of dN and dU
+Reu           Correlation of dEand dU
+Soln          "rapid", "final", "suppl/suppf", "campd", or "repro" corresponding to products  generated with rapid or final orbit products, in supplemental processing, campaign data processing or reprocessing
+End Field Description
+*YYYYMMDD HHMMSS JJJJJ.JJJJ         X             Y             Z            Sx        Sy       Sz     Rxy   Rxz    Ryz            NLat         Elong         Height         dN        dE        dU         Sn       Se       Su      Rne    Rnu    Reu  Soln
+ 20120307 115900 55993.4993 -2758534.76928 -4132153.92927  3986124.92382  0.00235  0.00338  0.00304  0.734 -0.684 -0.797      38.9283466784  236.2738011959  -11.30154     0.00000   0.00000   0.00000    0.00148  0.00140  0.00469  0.031 -0.105  0.106 dfixd
+ 20120314 115900 56000.4993 -2758534.77072 -4132153.92940  3986124.92304  0.00303  0.00448  0.00388  0.697 -0.654 -0.776      38.9283466678  236.2738011829  -11.30132    -0.00118  -0.00112   0.00022    0.00200  0.00195  0.00604 -0.006 -0.142  0.151 dfixd
+ 20120405 115900 56022.4993 -2758534.76905 -4132153.91989  3986124.92018  0.00267  0.00372  0.00343  0.684 -0.636 -0.752      38.9283466978  236.2738011380  -11.30999     0.00216  -0.00501  -0.00846    0.00181  0.00171  0.00515  0.020 -0.068  0.078 dfixd
+ 20120501 115900 56048.4993 -2758534.77546 -4132153.92600  3986124.92946  0.00247  0.00352  0.00318  0.720 -0.669 -0.808      38.9283467139  236.2738011157  -11.29745     0.00395  -0.00695   0.00410    0.00152  0.00150  0.00490  0.082 -0.096  0.110 dfixd
+ 20120508 115900 56055.4993 -2758534.77234 -4132153.92218  3986124.92731  0.00259  0.00352  0.00333  0.685 -0.667 -0.761      38.9283467267  236.2738011211  -11.30261     0.00537  -0.00647  -0.00107    0.00168  0.00164  0.00497 -0.005 -0.034  0.034 dfixd
+ 20140208 115900 56696.4993 -2758534.81387 -4132153.86653  3986124.95799  0.00351  0.00478  0.00437  0.763 -0.709 -0.794      38.9283470731  236.2738003665  -11.30140     0.04394  -0.07182   0.00014    0.00214  0.00193  0.00677  0.037 -0.119  0.004 dfixd

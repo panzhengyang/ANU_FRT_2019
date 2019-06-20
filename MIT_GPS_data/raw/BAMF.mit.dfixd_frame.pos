@@ -1,0 +1,39 @@
+PBO Station Position Time Series. Reference Frame : IGS08
+Format Version: 1.1.0
+4-character ID: BAMF
+Station name  : Bamfield        
+First Epoch   : 20100124 115900
+Last Epoch    : 20131221 115900
+Release Data  : 20140104 132800
+XYZ Reference position :  -2420721.34983 -3439856.10747  4778532.76080 (IGS08)
+NEU Reference position :    48.8353288202  234.8648949610   10.78576 (IGS08/WGS84)
+Start Field Description
+YYYYMMDD      Year, month, day for the given position epoch
+HHMMSS        Hour, minute, second for the given position epoch
+JJJJJ.JJJJJ   Modified Julian day for the given position epoch
+X             X coordinate, Specified Reference Frame, meters
+Y             Y coordinate, Specified Reference Frame, meters
+Z             Z coordinate, Specified Reference Frame, meters
+Sx            Standard deviation of the X position, meters
+Sy            Standard deviation of the Y position, meters
+Sz            Standard deviation of the Z position, meters
+Rxy           Correlation of the X and Y position
+Rxz           Correlation of the X and Z position
+Ryz           Correlation of the Y and Z position
+Nlat          North latitude, WGS-84 ellipsoid, decimal degrees
+Elong         East longitude, WGS-84 ellipsoid, decimal degrees
+Height (Up)   Height relative to WGS-84 ellipsoid, m
+dN            Difference in North component from NEU reference position, meters
+dE            Difference in East component from NEU reference position, meters
+du            Difference in vertical component from NEU reference position, meters
+Sn            Standard deviation of dN, meters
+Se            Standard deviation of dE, meters
+Su            Standard deviation of dU, meters
+Rne           Correlation of dN and dE
+Rnu           Correlation of dN and dU
+Reu           Correlation of dEand dU
+Soln          "rapid", "final", "suppl/suppf", "campd", or "repro" corresponding to products  generated with rapid or final orbit products, in supplemental processing, campaign data processing or reprocessing
+End Field Description
+*YYYYMMDD HHMMSS JJJJJ.JJJJ         X             Y             Z            Sx        Sy       Sz     Rxy   Rxz    Ryz            NLat         Elong         Height         dN        dE        dU         Sn       Se       Su      Rne    Rnu    Reu  Soln
+ 20100124 115900 55220.4993 -2420721.35100 -3439856.10838  4778532.76270  0.00564  0.00576  0.00804  0.815 -0.813 -0.835      48.8353288218  234.8648949551   10.78812     0.00018  -0.00043   0.00236    0.00288  0.00271  0.01068  0.127 -0.104 -0.394 dfixd
+ 20131221 115900 56647.4993 -2420721.37979 -3439856.11036  4778532.75413  0.00520  0.00539  0.00714  0.823 -0.804 -0.828      48.8353286480  234.8648946498   10.79364    -0.01917  -0.02280   0.00788    0.00276  0.00245  0.00967  0.166 -0.187 -0.383 dfixd

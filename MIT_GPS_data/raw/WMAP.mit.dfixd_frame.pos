@@ -1,0 +1,44 @@
+PBO Station Position Time Series. Reference Frame : IGS08
+Format Version: 1.1.0
+4-character ID: WMAP
+Station name  : WhitemanAirSCIGN
+First Epoch   : 19990129 115900
+Last Epoch    : 20131225 115900
+Release Data  : 20140104 132800
+XYZ Reference position :  -2511185.53052 -4641573.62129  3570417.69587 (IGS08)
+NEU Reference position :    34.2594227671  241.5857124035  268.10261 (IGS08/WGS84)
+Start Field Description
+YYYYMMDD      Year, month, day for the given position epoch
+HHMMSS        Hour, minute, second for the given position epoch
+JJJJJ.JJJJJ   Modified Julian day for the given position epoch
+X             X coordinate, Specified Reference Frame, meters
+Y             Y coordinate, Specified Reference Frame, meters
+Z             Z coordinate, Specified Reference Frame, meters
+Sx            Standard deviation of the X position, meters
+Sy            Standard deviation of the Y position, meters
+Sz            Standard deviation of the Z position, meters
+Rxy           Correlation of the X and Y position
+Rxz           Correlation of the X and Z position
+Ryz           Correlation of the Y and Z position
+Nlat          North latitude, WGS-84 ellipsoid, decimal degrees
+Elong         East longitude, WGS-84 ellipsoid, decimal degrees
+Height (Up)   Height relative to WGS-84 ellipsoid, m
+dN            Difference in North component from NEU reference position, meters
+dE            Difference in East component from NEU reference position, meters
+du            Difference in vertical component from NEU reference position, meters
+Sn            Standard deviation of dN, meters
+Se            Standard deviation of dE, meters
+Su            Standard deviation of dU, meters
+Rne           Correlation of dN and dE
+Rnu           Correlation of dN and dU
+Reu           Correlation of dEand dU
+Soln          "rapid", "final", "suppl/suppf", "campd", or "repro" corresponding to products  generated with rapid or final orbit products, in supplemental processing, campaign data processing or reprocessing
+End Field Description
+*YYYYMMDD HHMMSS JJJJJ.JJJJ         X             Y             Z            Sx        Sy       Sz     Rxy   Rxz    Ryz            NLat         Elong         Height         dN        dE        dU         Sn       Se       Su      Rne    Rnu    Reu  Soln
+ 19990129 115900 51207.4993 -2511185.51738 -4641573.61307  3570417.70819  0.00287  0.00476  0.00397  0.568 -0.505 -0.785      34.2594229273  241.5857124865  268.09841     0.01783   0.00764  -0.00421    0.00207  0.00224  0.00612  0.140  0.094  0.192 dfixd
+ 19990214 115900 51223.4993 -2511185.51890 -4641573.61105  3570417.70711  0.00365  0.00582  0.00503  0.589 -0.518 -0.755      34.2594229246  241.5857124615  268.09693     0.01753   0.00534  -0.00569    0.00275  0.00274  0.00757  0.108  0.107  0.126 dfixd
+ 19990222 115900 51231.4993 -2511185.53931 -4641573.62968  3570417.68690  0.00621  0.00959  0.00730  0.716 -0.657 -0.803      34.2594226415  241.5857123629  268.10712    -0.01397  -0.00373   0.00451    0.00371  0.00387  0.01245  0.069 -0.113 -0.009 dfixd
+ 19990228 115900 51237.4993 -2511185.53149 -4641573.62606  3570417.70057  0.00545  0.00848  0.00647  0.738 -0.690 -0.818      34.2594227784  241.5857124188  268.10911     0.00127   0.00142   0.00649    0.00314  0.00328  0.01108  0.049 -0.107 -0.025 dfixd
+ 19990319 115900 51256.4993 -2511185.54553 -4641573.62660  3570417.67657  0.00588  0.00917  0.00718  0.762 -0.724 -0.830      34.2594225633  241.5857122876  268.10151    -0.02268  -0.01066  -0.00110    0.00331  0.00338  0.01216  0.022 -0.062 -0.047 dfixd
+ 20131221 115900 56647.4993 -2511185.94054 -4641573.23483  3570417.88633  0.00296  0.00464  0.00364  0.742 -0.692 -0.790      34.2594249209  241.5857064916  268.09016     0.23977  -0.54393  -0.01245    0.00186  0.00177  0.00608 -0.013 -0.069 -0.028 dfixd
+ 20131225 115900 56651.4993 -2511185.93701 -4641573.22956  3570417.88297  0.00283  0.00444  0.00352  0.758 -0.688 -0.816      34.2594249280  241.5857064982  268.08305     0.24055  -0.54332  -0.01956    0.00171  0.00164  0.00587  0.073 -0.044 -0.024 dfixd

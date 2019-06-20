@@ -1,0 +1,51 @@
+PBO Station Position Time Series. Reference Frame : IGS08
+Format Version: 1.1.0
+4-character ID: WHYT
+Station name  : WhitingRegiSCIGN
+First Epoch   : 20140121 115900
+Last Epoch    : 20171203 115900
+Release Date  : 20171214 160842
+XYZ Reference position :  -2465333.41167 -4707048.39174  3516603.94835 (IGS08)
+NEU Reference position :    33.6744915121  242.3565402515  265.40517 (IGS08/WGS84)
+Start Field Description
+YYYYMMDD      Year, month, day for the given position epoch
+HHMMSS        Hour, minute, second for the given position epoch
+JJJJJ.JJJJJ   Modified Julian day for the given position epoch
+X             X coordinate, Specified Reference Frame, meters
+Y             Y coordinate, Specified Reference Frame, meters
+Z             Z coordinate, Specified Reference Frame, meters
+Sx            Standard deviation of the X position, meters
+Sy            Standard deviation of the Y position, meters
+Sz            Standard deviation of the Z position, meters
+Rxy           Correlation of the X and Y position
+Rxz           Correlation of the X and Z position
+Ryz           Correlation of the Y and Z position
+Nlat          North latitude, WGS-84 ellipsoid, decimal degrees
+Elong         East longitude, WGS-84 ellipsoid, decimal degrees
+Height (Up)   Height relative to WGS-84 ellipsoid, m
+dN            Difference in North component from NEU reference position, meters
+dE            Difference in East component from NEU reference position, meters
+du            Difference in vertical component from NEU reference position, meters
+Sn            Standard deviation of dN, meters
+Se            Standard deviation of dE, meters
+Su            Standard deviation of dU, meters
+Rne           Correlation of dN and dE
+Rnu           Correlation of dN and dU
+Reu           Correlation of dEand dU
+Soln          "rapid", "final", "suppl/suppf", "campd", or "repro" corresponding to products  generated with rapid or final orbit products, in supplemental processing, campaign data processing or reprocessing
+End Field Description
+*YYYYMMDD HHMMSS JJJJJ.JJJJ         X             Y             Z            Sx        Sy       Sz     Rxy   Rxz    Ryz            NLat         Elong         Height         dN        dE        dU         Sn       Se       Su      Rne    Rnu    Reu  Soln
+ 20140121 115900 56678.4993 -2465333.41245 -4707048.39281  3516603.94914  0.00211  0.00325  0.00262  0.684 -0.601 -0.756      33.6744915114  242.3565402494  265.40669    -0.00007  -0.00019   0.00153    0.00145  0.00138  0.00422  0.062 -0.008 -0.017 dfixd
+ 20140122 115900 56679.4993 -2465333.41180 -4707048.39187  3516603.94821  0.00247  0.00382  0.00308  0.680 -0.603 -0.744      33.6744915101  242.3565402509  265.40523    -0.00021  -0.00005   0.00007    0.00173  0.00163  0.00495  0.030 -0.006 -0.016 dfixd
+ 20140123 115900 56680.4993 -2465333.41011 -4707048.38941  3516603.94785  0.00235  0.00359  0.00287  0.721 -0.662 -0.772      33.6744915222  242.3565402547  265.40256     0.00113   0.00030  -0.00260    0.00152  0.00145  0.00472  0.010 -0.022 -0.075 dfixd
+ 20140125 115900 56682.4993 -2465333.41274 -4707048.39286  3516603.94807  0.00263  0.00411  0.00321  0.729 -0.671 -0.780      33.6744915025  242.3565402469  265.40625    -0.00106  -0.00043   0.00108    0.00168  0.00161  0.00536  0.005 -0.050 -0.052 dfixd
+ 20140128 115900 56685.4993 -2465333.41298 -4707048.39609  3516603.95182  0.00253  0.00399  0.00326  0.701 -0.618 -0.753      33.6744915158  242.3565402608  265.41080     0.00042   0.00086   0.00564    0.00180  0.00162  0.00521  0.028  0.014 -0.006 dfixd
+ 20140131 115900 56688.4993 -2465333.41400 -4707048.39355  3516603.95043  0.00276  0.00428  0.00336  0.739 -0.664 -0.785      33.6744915143  242.3565402383  265.40855     0.00024  -0.00122   0.00339    0.00175  0.00166  0.00560  0.046 -0.045 -0.068 dfixd
+ 20140204 115900 56692.4993 -2465333.41292 -4707048.38847  3516603.94797  0.00255  0.00403  0.00322  0.731 -0.646 -0.771      33.6744915208  242.3565402232  265.40303     0.00097  -0.00262  -0.00214    0.00172  0.00156  0.00526  0.039 -0.015 -0.030 dfixd
+ 20140217 115900 56705.4993 -2465333.41562 -4707048.38827  3516603.95163  0.00257  0.00405  0.00322  0.651 -0.627 -0.737      33.6744915428  242.3565401964  265.40595     0.00343  -0.00510   0.00079    0.00179  0.00177  0.00520 -0.066 -0.009  0.008 dfixd
+ 20140221 115900 56709.4993 -2465333.41491 -4707048.38961  3516603.95236  0.00240  0.00380  0.00301  0.692 -0.604 -0.759      33.6744915441  242.3565402099  265.40707     0.00356  -0.00385   0.00190    0.00167  0.00156  0.00490  0.057 -0.023  0.010 dfixd
+ 20140225 115900 56713.4993 -2465333.41523 -4707048.38857  3516603.95276  0.00225  0.00355  0.00277  0.707 -0.649 -0.767      33.6744915509  242.3565402016  265.40665     0.00433  -0.00462   0.00148    0.00149  0.00143  0.00459 -0.004 -0.049 -0.020 dfixd
+ 20140226 115900 56714.4993 -2465333.41475 -4707048.38826  3516603.95263  0.00272  0.00418  0.00330  0.702 -0.628 -0.755      33.6744915524  242.3565402046  265.40616     0.00449  -0.00434   0.00100    0.00183  0.00174  0.00543  0.029 -0.043 -0.047 dfixd
+ 20140307 115900 56723.4993 -2465333.41591 -4707048.38382  3516603.94926  0.00271  0.00426  0.00341  0.738 -0.654 -0.775      33.6744915441  242.3565401714  265.40147     0.00356  -0.00742  -0.00370    0.00181  0.00164  0.00559  0.039 -0.016 -0.046 dfixd
+ 20140311 115900 56727.4993 -2465333.41718 -4707048.38596  3516603.95156  0.00271  0.00437  0.00339  0.694 -0.627 -0.782      33.6744915489  242.3565401700  265.40481     0.00411  -0.00755  -0.00035    0.00178  0.00177  0.00562  0.046 -0.039  0.026 dfixd
+ 20171203 115900 58090.4993 -2465333.52683 -4707048.29219  3516603.99701  0.00207  0.00340  0.00273  0.695 -0.634 -0.766      33.6744920509  242.3565386534  265.40322     0.05998  -0.14805  -0.00195    0.00146  0.00135  0.00440 -0.005  0.014  0.045 dfixd

@@ -1,0 +1,41 @@
+PBO Station Position Time Series. Reference Frame : IGS08
+Format Version: 1.1.0
+4-character ID: DLFT
+Station name  : Delft           
+First Epoch   : 19990319 115900
+Last Epoch    : 20100124 115900
+Release Data  : 20131010 170006
+XYZ Reference position :   3924696.96446   301132.00424  5001903.47279 (IGS08)
+NEU Reference position :    51.9860118732    4.3875627294   74.25802 (IGS08/WGS84)
+Start Field Description
+YYYYMMDD      Year, month, day for the given position epoch
+HHMMSS        Hour, minute, second for the given position epoch
+JJJJJ.JJJJJ   Modified Julian day for the given position epoch
+X             X coordinate, Specified Reference Frame, meters
+Y             Y coordinate, Specified Reference Frame, meters
+Z             Z coordinate, Specified Reference Frame, meters
+Sx            Standard deviation of the X position, meters
+Sy            Standard deviation of the Y position, meters
+Sz            Standard deviation of the Z position, meters
+Rxy           Correlation of the X and Y position
+Rxz           Correlation of the X and Z position
+Ryz           Correlation of the Y and Z position
+Nlat          North latitude, WGS-84 ellipsoid, decimal degrees
+Elong         East longitude, WGS-84 ellipsoid, decimal degrees
+Height (Up)   Height relative to WGS-84 ellipsoid, m
+dN            Difference in North component from NEU reference position, meters
+dE            Difference in East component from NEU reference position, meters
+du            Difference in vertical component from NEU reference position, meters
+Sn            Standard deviation of dN, meters
+Se            Standard deviation of dE, meters
+Su            Standard deviation of dU, meters
+Rne           Correlation of dN and dE
+Rnu           Correlation of dN and dU
+Reu           Correlation of dEand dU
+Soln          "rapid", "final", "suppl/suppf", or "campd", corresponding to products  generated with rapid or final orbit products, in supplemental processing, or in campaign data processing
+End Field Description
+*YYYYMMDD HHMMSS JJJJJ.JJJJ         X             Y             Z            Sx        Sy       Sz     Rxy   Rxz    Ryz            NLat         Elong         Height         dN        dE        dU         Sn       Se       Su      Rne    Rnu    Reu  Soln
+ 19990319 115900 51256.4993  3924697.00738   301131.95957  5001903.45664  0.00431  0.00226  0.00478  0.119  0.742  0.158      51.9860115050    4.3875620333   74.26955    -0.04099  -0.04772   0.01153    0.00230  0.00224  0.00601  0.045 -0.113  0.036 dfixd
+ 19990901 115900 51422.4993  3924697.00150   301131.96329  5001903.45109  0.00423  0.00225  0.00481  0.215  0.761  0.171      51.9860115137    4.3875620938   74.26174    -0.04001  -0.04357   0.00372    0.00221  0.00220  0.00603 -0.084 -0.092  0.088 dfixd
+ 19991004 115900 51455.4993  3924696.99293   301131.96186  5001903.44133  0.00540  0.00249  0.00617  0.091  0.758  0.089      51.9860115210    4.3875620826   74.24872    -0.03920  -0.04434  -0.00930    0.00283  0.00248  0.00770  0.011 -0.075 -0.041 dfixd
+ 20100124 115900 55220.4993  3924696.85687   301132.13213  5001903.54329  0.00359  0.00148  0.00410  0.145  0.795  0.145      51.9860129536    4.3875647053   74.25353     0.12028   0.13546  -0.00449    0.00174  0.00146  0.00517  0.012 -0.098 -0.006 dfixd

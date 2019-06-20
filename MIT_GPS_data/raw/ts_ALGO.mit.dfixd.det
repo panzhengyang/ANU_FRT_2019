@@ -1,0 +1,16 @@
+------- 2013/03/21 14:10 04 -------
+Detrend of ALGO.mit.dfixd North
+WRMS:       2.59 mm NRMS:       1.46 #:  7511 used of  7513 data
+Offset                                2.11 +-    0.03 mm
+Rate                                  2.50 +-    0.00 mm/yr
+
+Detrend of ALGO.mit.dfixd East 
+WRMS:       2.58 mm NRMS:       1.53 #:  7506 used of  7513 data
+Offset                              -11.55 +-    0.03 mm
+Rate                                -16.11 +-    0.01 mm/yr
+
+Detrend of ALGO.mit.dfixd Up   
+WRMS:       7.45 mm NRMS:       1.29 #:  7479 used of  7513 data
+Offset                                1.41 +-    0.09 mm
+Rate                                  3.29 +-    0.02 mm/yr
+

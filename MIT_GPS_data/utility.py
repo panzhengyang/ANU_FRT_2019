@@ -5,6 +5,9 @@ import numpy as np
 # refer ninjagecko answer : https://stackoverflow.com/questions/6451655/python-how-to-convert-datetime-dates-to-decimal-years
 def toYearFraction(date_array,time_array):
     out = np.zeros(np.size(date_array))
+    def sinceEpoch(date):
+        return time.mktime(date.timetuple())
+    print('bla')
     for i in range( np.size(date_array) ):
         raw_date = date_array[i]
         raw_time = time_array[i]
@@ -18,8 +21,6 @@ def toYearFraction(date_array,time_array):
         
         date = dt(raw_year,raw_month,raw_day,raw_hour,raw_minute,raw_second)
         
-        def sinceEpoch(date):
-            return time.mktime(date.timetuple())
         s = sinceEpoch
         
         year = date.year

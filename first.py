@@ -18,7 +18,6 @@ if len(sys.argv)<2:
     sys.exit()
 
 grace_data_file_name = "GRACE_data/GRACE_data_"+sys.argv[1]+".txt"
-gps_data_file_name = "NDL_GPS_data/GPS_data_"+sys.argv[1]+".txt"
 
 min_data_points = 3
 
@@ -42,12 +41,22 @@ gps_data = np.genfromtxt(gps_data_file_name ,
 # The data has variable number of spaces seperating columns
 # None is the default setting which means any white space is taken as delimiter which include single space, many spaces, tab or many tab etc
 #'''
+gps_data_file_name = "NDL_GPS_data/GPS_data_"+sys.argv[1]+".txt"
 gps_data = pd.read_csv(gps_data_file_name,
         delimiter='\s+',
         header=None,
         skiprows=1)
 gps_data = np.asarray(gps_data)
 #print(gps_data.shape)
+
+Tgps , EIgps , EFgps , NIgps , NFgps , UIgps , UFgps , ESgps , NSgps , USgps = gps_data[:,2].astype(float) , gps_data[:,7].astype(float) , gps_data[:,8].astype(float) , gps_data[:,9].astype(float) , gps_data[:,10].astype(float) , gps_data[:,11].astype(float) , gps_data[:,12].astype(float) , gps_data[:,14].astype(float) , gps_data[:,15].astype(float) , gps_data[:,16].astype(float) 
+
+Egps = EIgps.astype(float) + EFgps.astype(float)
+Ngps = NIgps.astype(float) + NFgps.astype(float)
+Ugps = UIgps.astype(float) + UFgps.astype(float)
+
+# Converting units m to mm
+Egps , Ngps , Ugps = Egps*1000 , Ngps*1000 , Ugps*1000 
 
 # getting the latitude and longitude of the station from station data file 
 df=pd.read_csv('station_data.csv',sep='\t')
@@ -102,14 +111,6 @@ Meaning of columns:
 20.  0.04405  north-vertical correlation coefficient
 '''
 
-Tgps , EIgps , EFgps , NIgps , NFgps , UIgps , UFgps , ESgps , NSgps , USgps = gps_data[:,2].astype(float) , gps_data[:,7].astype(float) , gps_data[:,8].astype(float) , gps_data[:,9].astype(float) , gps_data[:,10].astype(float) , gps_data[:,11].astype(float) , gps_data[:,12].astype(float) , gps_data[:,14].astype(float) , gps_data[:,15].astype(float) , gps_data[:,16].astype(float) 
-
-Egps = EIgps.astype(float) + EFgps.astype(float)
-Ngps = NIgps.astype(float) + NFgps.astype(float)
-Ugps = UIgps.astype(float) + UFgps.astype(float)
-
-# Converting units m to mm
-Egps , Ngps , Ugps = Egps*1000 , Ngps*1000 , Ugps*1000 
 
 
 # DTgrace is the difference of consecutive elements in Tgrace

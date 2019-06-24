@@ -16,5 +16,3 @@ awk 'FNR==NR{a[$1];next}($1 in a){print}' MIT_station.csv station_data.csv > MIT
 the shell script get_time_in_YYYY.YYYY.sh will make the GPS_data_* .txt file of all the stations from *.mit.dfixd_frame.pos files. GPS_data_* files are same as *.mit.dfixd_frame.pos files without header and with additional column in the beginning which is the decimal year. 
 This decimal year is calculated by python script get_time_in_YYYY.py and get_time_in_YYYY.sh loops the python script for all the stations from MIT_station.csv file.
 
-Before running get_time_in_YYYY.sh file copy all the *.mit.dfixd_frame.pos files from raw/ folder to this folder. This can be done by using following command in this folder
-cp raw/*.mit.dfixd_frame.pos .

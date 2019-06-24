@@ -6,17 +6,17 @@ import pandas as pd
 import sys
 
 station_code = sys.argv[1]
-gps_data_file_name = station_code +'.mit.dfixd_frame.pos'
+gps_data_file_name = 'raw/'+station_code +'.mit.dfixd_frame.pos'
 
 # these widths are based on the data file, unique for each file
-mywidths = [ 5,2,2,3,2,2,12,15,15,15,9,8,9,7,7,7,21,16,9,13,10,10,11,8,9,7,7,7,6]
+mywidths = [ 5,2,2,3,2,2,12,15,15,15,9,8,9,7,7,7,21,15,10,13,10,10,11,8,9,7,7,7,6]
 pd_data = pd.read_fwf(gps_data_file_name,
         widths=mywidths,
         header = None,
         skiprows=37)
 
 np_data = np.asarray(pd_data)
-
+print(np.shape(np_data))
 year_array = np_data[:,0]
 month_array = np_data[:,1]
 day_array = np_data[:,2]

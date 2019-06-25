@@ -8,15 +8,34 @@ import sys
 station_code = sys.argv[1]
 gps_data_file_name = 'raw/'+station_code +'.mit.dfixd_frame.pos'
 
+#station_code = 'temp'
+#gps_data_file_name = 'tmp.txt'
+
+
 # these widths are based on the data file, unique for each file
 mywidths = [ 5,2,2,3,2,2,12,15,15,15,9,8,9,7,7,7,21,15,10,13,10,10,11,8,9,7,7,7,6]
 
 # in case of any errors
 try:
-    pd_data = pd.read_fwf(gps_data_file_name,
+    
+    original_file = open(gps_data_file_name,'r')
+    raw_file = original_file.read()
+    original_file.close()
+    start_index = raw_file.find('Start Field Description')
+    end_index = raw_file.find('Reu  Soln') +10
+
+    temp_data_file_name = 'temp_data.txt'
+    temp_file = open(temp_data_file_name,'w')
+    if ( start_index != -1 and end_index != -1 ):
+        temp_file.write(raw_file.replace(raw_file[start_index:end_index],''))
+    else :
+        temp_file.write(raw_file)
+    temp_file.close()
+    
+    pd_data = pd.read_fwf(temp_data_file_name,
             widths=mywidths,
             header = None,
-            skiprows=37)
+            skiprows=9)
 
     np_data = np.asarray(pd_data)
     year_array = np_data[:,0]

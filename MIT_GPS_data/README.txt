@@ -15,11 +15,7 @@ the shell scripts also creates MIT_decimal_year_successful_station.txt and MIT_d
 Some raw data files have small header/info (9 rows) and some have large header/info (37 rows). The python script will considers this and will work accordingly. 
 Python script creates a temp_data.txt file which can be deleted.
 
-
-#MIT_station_data file has the station codes with latitude and longitude
-#This file is created from the station_data.csv file from NGL data which has higher number of gps station (superset).
-#The following command is used, and refer cuonglm's answer in : https://unix.stackexchange.com/questions/125155/compare-two-files-for-matching-lines-and-store-positive-results
-#awk 'FNR==NR{a[$1];next}($1 in a){print}' MIT_decimal_year_successful_station.txt station_data.csv > MIT_station_data.csv 
-
 To get the lat lon data file, lat lon should be extracted from original file's info. This is done by MIT_get_lat_lon.sh searches for string 'NEU Reference position :'. 
+
+
 

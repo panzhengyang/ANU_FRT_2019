@@ -9,7 +9,7 @@ station_file="station_data.csv"
 grace_names_file="names.txt"
 grace_times_file="time_decimal_years.txt"
 
-rm GRACE_data_*  2> /dev/null   # removing any folder with same name with no error messages 
+#rm GRACE_data_*  2> /dev/null   # removing any folder with same name with no error messages 
 
 while IFS= read -r string
 do

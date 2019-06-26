@@ -1,9 +1,9 @@
 
-gps_prefix="NDL_GPS_data/GPS_data_"
+gps_prefix="MIT_GPS_data/GPS_data_"
 grace_prefix="GRACE_data/GRACE_data_"
-station_data_file="station_data.csv"
-result_file_name="result.txt"
-failed_station_file_name="failed_stations.txt"
+station_data_file="MIT_station_data.txt"
+result_file_name="MIT_result_2011.3333.txt"
+failed_station_file_name="MIT_failed_stations.txt"
 
 #rm $result_file_name 2> /dev/null
 #rm $failed_station_file_name 2> /dev/null

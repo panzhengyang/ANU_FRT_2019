@@ -41,11 +41,41 @@ try:
             #dtype=float)
     grace_data = np.asarray(grace_data)
     #'''
+    
+    ''' For NGL
     gps_data = pd.read_csv(gps_data_file_name,
             delimiter='\s+',
             header=None,
             skiprows=1)
     gps_data = np.asarray(gps_data)
+
+    Tgps , EIgps , EFgps , NIgps , NFgps , UIgps , UFgps , ESgps , NSgps , USgps = gps_data[:,2].astype(float) , gps_data[:,7].astype(float) , gps_data[:,8].astype(float) , gps_data[:,9].astype(float) , gps_data[:,10].astype(float) , gps_data[:,11].astype(float) , gps_data[:,12].astype(float) , gps_data[:,14].astype(float) , gps_data[:,15].astype(float) , gps_data[:,16].astype(float) 
+
+    Egps = EIgps.astype(float) + EFgps.astype(float)
+    Ngps = NIgps.astype(float) + NFgps.astype(float)
+    Ugps = UIgps.astype(float) + UFgps.astype(float)
+
+    # Converting units m to mm
+    Egps , Ngps , Ugps = Egps*1000 , Ngps*1000 , Ugps*1000 
+    #'''
+
+    #''' For MIT
+
+    gps_data = pd.read_csv(gps_data_file_name,
+            delimiter='\s+',
+            header=None,
+            skiprows=0)
+    gps_data = np.asarray(gps_data)
+    #print(gps_data.shape)
+
+    Tgps , Elon , Nlat , Ugps , ESgps , NSgps , USgps = gps_data[:,0].astype(float) , gps_data[:,18].astype(float) , gps_data[:,17].astype(float) , gps_data[:,19].astype(float) , gps_data[:,24].astype(float) , gps_data[:,23].astype(float) , gps_data[:,25].astype(float)  
+
+    Earth_radius = 6.3781*10**6     # meters
+    # Converting units mm
+    Egps , Ngps , Ugps = Earth_radius*np.sin(Nlat*np.pi/180)*(Elon-Elon[0])*1000 , Earth_radius*((Nlat-Nlat[0])*np.pi/180.)*1000 , Ugps*1000 
+
+    #'''
+
 
     # time north north_sigma east east_sigma up up_sigma 
     Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,1].astype(float) , grace_data[:,2].astype(float) , grace_data[:,3].astype(float), grace_data[:,4].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
@@ -60,47 +90,6 @@ try:
     ESgrace = ESgrace[grace_select_flag]
     Ugrace = Ugrace[grace_select_flag]
     USgrace = USgrace[grace_select_flag]
-
-    ''' Example line for gps:
-
-    -------------------
-    COVE 10JUL28 2010.5708 55405 1594 4 -112.8  -3815 -0.41548   4276712 0.86481  1687  0.35637  0.1800 0.00065 0.00067 0.00328  0.05829 -0.56488  0.04405
-    -------------------
-
-    Meaning of columns:
-
-    1.  COVE      station name
-    2.  10JUL28   date
-    3.  2010.5708 decimal year
-    4.  55405     modified Julian day
-    5.  1594      GPS week
-    6.  4         day of GPS week
-    7.  -112.8    longitude (degrees) of reference meridian
-    8.  -3815     eastings (m), integer portion (from ref. meridian)
-    9.  -0.41548  eastings (m), fractional portion
-    10.  4276712  northings (m), integer portion (from equator)
-    11.  0.86481  northings (m), fractional portion
-    12.  1687     vertical (m), integer portion
-    13.  0.35637  vertical (m), fractional portion
-    14. 0.1800    antenna height (m) assumed from Rinex header
-    15. 0.00065   east sigma (m)
-    16. 0.00067   north sigma (m)
-    17. 0.00328   vertical sigma (m)
-    18.  0.05829  east-north correlation coefficient
-    19. -0.56488  east-vertical correlation coefficient
-    20.  0.04405  north-vertical correlation coefficient
-    '''
-
-    Tgps , EIgps , EFgps , NIgps , NFgps , UIgps , UFgps , ESgps , NSgps , USgps = gps_data[:,2].astype(float) , gps_data[:,7].astype(float) , gps_data[:,8].astype(float) , gps_data[:,9].astype(float) , gps_data[:,10].astype(float) , gps_data[:,11].astype(float) , gps_data[:,12].astype(float) , gps_data[:,14].astype(float) , gps_data[:,15].astype(float) , gps_data[:,16].astype(float) 
-
-    Egps = EIgps.astype(float) + EFgps.astype(float)
-    Ngps = NIgps.astype(float) + NFgps.astype(float)
-    Ugps = UIgps.astype(float) + UFgps.astype(float)
-
-    # Converting units m to mm
-    Egps , Ngps , Ugps = Egps*1000 , Ngps*1000 , Ugps*1000 
-
-    # Averaging GPS data at times when GRACE data is available
 
     # DTgrace is the difference of consecutive elements in Tgrace
     DTgrace = np.diff(Tgrace)       # length of DTgrace is one less than Tgrace

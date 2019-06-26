@@ -41,28 +41,52 @@ gps_data = np.genfromtxt(gps_data_file_name ,
 # The data has variable number of spaces seperating columns
 # None is the default setting which means any white space is taken as delimiter which include single space, many spaces, tab or many tab etc
 #'''
-gps_data_file_name = "NDL_GPS_data/GPS_data_"+sys.argv[1]+".txt"
-gps_data = pd.read_csv(gps_data_file_name,
-        delimiter='\s+',
-        header=None,
-        skiprows=1)
-gps_data = np.asarray(gps_data)
-#print(gps_data.shape)
 
-Tgps , EIgps , EFgps , NIgps , NFgps , UIgps , UFgps , ESgps , NSgps , USgps = gps_data[:,2].astype(float) , gps_data[:,7].astype(float) , gps_data[:,8].astype(float) , gps_data[:,9].astype(float) , gps_data[:,10].astype(float) , gps_data[:,11].astype(float) , gps_data[:,12].astype(float) , gps_data[:,14].astype(float) , gps_data[:,15].astype(float) , gps_data[:,16].astype(float) 
+if sys.argv[2] == 'N' :
+    #''' For NGL         
+    gps_data_file_name = "NGL_GPS_data/GPS_data_"+sys.argv[1]+".txt"
+    gps_data = pd.read_csv(gps_data_file_name,
+            delimiter='\s+',
+            header=None,
+            skiprows=1)
+    gps_data = np.asarray(gps_data)
+    #print(gps_data.shape)
 
-Egps = EIgps.astype(float) + EFgps.astype(float)
-Ngps = NIgps.astype(float) + NFgps.astype(float)
-Ugps = UIgps.astype(float) + UFgps.astype(float)
+    Tgps , EIgps , EFgps , NIgps , NFgps , UIgps , UFgps , ESgps , NSgps , USgps = gps_data[:,2].astype(float) , gps_data[:,7].astype(float) , gps_data[:,8].astype(float) , gps_data[:,9].astype(float) , gps_data[:,10].astype(float) , gps_data[:,11].astype(float) , gps_data[:,12].astype(float) , gps_data[:,14].astype(float) , gps_data[:,15].astype(float) , gps_data[:,16].astype(float) 
 
-# Converting units m to mm
-Egps , Ngps , Ugps = Egps*1000 , Ngps*1000 , Ugps*1000 
+    Egps = EIgps.astype(float) + EFgps.astype(float)
+    Ngps = NIgps.astype(float) + NFgps.astype(float)
+    Ugps = UIgps.astype(float) + UFgps.astype(float)
+
+    # Converting units m to mm
+    Egps , Ngps , Ugps = Egps*1000 , Ngps*1000 , Ugps*1000 
+    #'''
+
+elif sys.argv[2] == 'M' :
+
+    #''' For MIT        
+    gps_data_file_name = "MIT_GPS_data/GPS_data_"+sys.argv[1]+".txt"
+    gps_data = pd.read_csv(gps_data_file_name,
+            delimiter='\s+',
+            header=None,
+            skiprows=0)
+    gps_data = np.asarray(gps_data)
+    #print(gps_data.shape)
+
+    Tgps , Elon , Nlat , Ugps , ESgps , NSgps , USgps = gps_data[:,0].astype(float) , gps_data[:,18].astype(float) , gps_data[:,17].astype(float) , gps_data[:,19].astype(float) , gps_data[:,24].astype(float) , gps_data[:,23].astype(float) , gps_data[:,25].astype(float)  
+
+    Earth_radius = 6.3781*10**6     # meters
+    # Converting units mm
+    Egps , Ngps , Ugps = Earth_radius*np.sin(Nlat*np.pi/180)*(Elon-Elon[0])*1000 , Earth_radius*((Nlat-Nlat[0])*np.pi/180.)*1000 , Ugps*1000 
+    #'''
 
 # getting the latitude and longitude of the station from station data file 
-df=pd.read_csv('station_data.csv',sep='\t')
+df=pd.read_csv('station_data.csv',sep='\s+')
 st=df[df['name'].str.match(sys.argv[1])]
 lat = float(st.iloc[0,1])
 lon = float(st.iloc[0,2])
+if lon > 180:
+    lon = lon-360.0
 print(lat,lon)
 
 # time north north_sigma east east_sigma up up_sigma 

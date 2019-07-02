@@ -9,3 +9,5 @@ GRACE Mission: Status and Prospects, Presented at: Grace Science Team Meeting 20
 
 Observations:
 In near south Brazil GPS time series is sloping downwards, GRACE is not able to have such high enough downward slope.
+
+get_time_stamps.sh file needs to be modified. It consideres all the years to have 365 days !! 

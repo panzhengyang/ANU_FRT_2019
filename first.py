@@ -11,27 +11,29 @@ import sys
 Tmax = 2011.33333333
 Tmin = 2001.0
 
-if len(sys.argv)<2:
+if len(sys.argv)<3:
     print('No enough input aurguments')
     print('Example usage is ')
-    print('python3 -W ignore station_code')
+    print('python3 -W ignore station_code GPS_dataset_code')
     sys.exit()
 
 grace_data_file_name = "GRACE_data/GRACE_data_"+sys.argv[1]+".txt"
 
 min_data_points = 3
 
-'''
-grace_data = np.genfromtxt(grace_data_file_name , 
-        delimiter = ' ' ,
-        skip_header = 1)
-#'''
+if len(sys.argv) > 3 :
+    grace_data_file_name = sys.argv[3]
+    # header needs to be removed from this file
+
 grace_data = pd.read_csv(grace_data_file_name,
         delimiter=' ',
         header=None,
         skiprows=0,
         dtype=float)
 grace_data = np.asarray(grace_data)
+
+# time north north_sigma east east_sigma up up_sigma 
+Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,1].astype(float) , grace_data[:,2].astype(float) , grace_data[:,3].astype(float), grace_data[:,4].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
 
 #print(grace_data.shape)
 '''
@@ -89,8 +91,6 @@ if lon > 180:
     lon = lon-360.0
 print(lat,lon)
 
-# time north north_sigma east east_sigma up up_sigma 
-Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,1].astype(float) , grace_data[:,2].astype(float) , grace_data[:,3].astype(float), grace_data[:,4].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
 
 '''
 # Selecting the GRACE data which is only in a particular time intervel 

@@ -26,6 +26,7 @@ max_lon="$( sort -k1 -n $temp_data_file | tail -1 | awk '{ print $1 }' )"
 min_lat="$( sort -k2 -n $temp_data_file | head -1 | awk '{ print $2 }' )"
 max_lat="$( sort -k2 -n $temp_data_file | tail -1 | awk '{ print $2 }' )"
 
+
 if [ -z $4 ]
 then
   max_value="$( sort -k3 -n $temp_data_file | tail -1 | awk '{ print $3 }' )"

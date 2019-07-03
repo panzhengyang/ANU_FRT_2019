@@ -14,7 +14,7 @@ Tmin = 2001.0
 if len(sys.argv)<3:
     print('No enough input aurguments')
     print('Example usage is ')
-    print('python3 -W ignore station_code GPS_dataset_code')
+    print('python3 -W ignore this_file_name station_code GPS_dataset_code')
     sys.exit()
 
 grace_data_file_name = "GRACE_data/GRACE_data_"+sys.argv[1]+".txt"

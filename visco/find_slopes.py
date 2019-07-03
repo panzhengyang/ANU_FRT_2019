@@ -24,12 +24,12 @@ grace_names_pd_dataframe = pd.read_csv(grace_names_file ,
         dtype = str)
 grace_names = np.asarray(grace_names_pd_dataframe , dtype = str)
 
-#station_name = str(sys.argv[1])
-#latitude = float(sys.argv[2])
-#longitude = float(sys.argv[3])
-station_name = 'HYDE'
-latitude = 17.417259 
-longitude = 78.550870
+station_name = str(sys.argv[1])
+latitude = float(sys.argv[2])
+longitude = float(sys.argv[3])
+#station_name = 'HYDE'
+#latitude = 17.417259 
+#longitude = 78.550870
 
 longitue = longitude - 360.0*bool(longitude>180)
 

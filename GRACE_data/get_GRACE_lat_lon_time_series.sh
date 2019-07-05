@@ -31,7 +31,8 @@ do
   stringarray=($string)
   no_files=${stringarray[0]}    # number of files
 
-  rm "GRACE_data_$name"".txt" 2> /dev/null
+########################## careful here 
+  #rm "GRACE_data_$name"".txt" 2> /dev/null
 
   #for i in $(seq 1 1)
   for i in $(seq 1 $no_files)
@@ -42,9 +43,9 @@ do
     #echo $shc_name $shc_time
     temp_file='temp.dat'
     #echo $lat $lon
-    ./evaluate_sphrarm $shc_name $temp_file  $lat    -99      $lon     -99 10 edefn > /dev/null 
+    ./evaluate_sphharm $shc_name $temp_file  $lat    -99      $lon     -99 10 visco #> /dev/null 
     #echo $shc_time $(cat temp.dat) >> "$(pwd)/$grace_save_folder_name/$name.txt"
-    echo $shc_time $(cat $temp_file) >> "GRACE_data_$name.txt"
+    echo $shc_time $(cat $temp_file) >> "GRACE_visco_data_$name.txt"
     
     #echo $name $i
 

@@ -42,7 +42,7 @@ try:
     grace_data = np.asarray(grace_data)
     #'''
     
-    ''' For NGL
+    #''' For NGL
     gps_data = pd.read_csv(gps_data_file_name,
             delimiter='\s+',
             header=None,
@@ -59,7 +59,7 @@ try:
     Egps , Ngps , Ugps = Egps*1000 , Ngps*1000 , Ugps*1000 
     #'''
 
-    #''' For MIT
+    ''' For MIT
 
     gps_data = pd.read_csv(gps_data_file_name,
             delimiter='\s+',

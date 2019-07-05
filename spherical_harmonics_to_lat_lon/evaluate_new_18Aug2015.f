@@ -1,3 +1,6 @@
+! Edit on 4th july 2019, by KVNG Vikram and P. Tregoning
+! 'visco' option was giving zero output before.
+! correction done by adding or 'visco' in if conditions along with 'vert' 
       program evaluate_sphharm
 
 c  This is a program to evaluate a spherical harmonic representation of some field.
@@ -268,7 +271,7 @@ c differentiation because it is 1.d0
             elseif ( visco .eq. 'east' ) then
               sumvar = sumvar+0.0d0
               sumdef = sumdef + 0.0d0
-            elseif (visco.eq.'vert') then
+            elseif (visco.eq.'vert' .or. visco .eq. 'visco') then
               sumdef = sumdef+vfact*Plm(nm)*coefC(ideg+1,1)   ! * cos(m*lambda) 
               sumvar = sumvar+(vfact*plm(nm)*coef_errC(ideg+1,1))**2
             elseif (visco.eq.'ewh') then
@@ -316,7 +319,7 @@ c       print*,'Legendre for',ideg,iord,' : ',Plm(nm)*dsqrt(2.d0),vfact
      .             +2.d0*(vfact*iord*(plm(nm)/dsin(colat)))**2
      .             *((dsin(iord*rlong)*coef_errC(ideg+1,iord+1))**2
      .              +(dcos(iord*rlong)*coef_errS(ideg+1,iord+1))**2)
-              elseif (visco.eq.'vert') then
+              elseif (visco.eq.'vert' .or. visco .eq. 'visco') then
                 sum =  vfact*Plm(nm)*dsqrt(2.d0)                 
      .                *(coefC(ideg+1,iord+1)*dcos(iord*rlong)
      .                +coefS(ideg+1,iord+1)*dsin(iord*rlong) )

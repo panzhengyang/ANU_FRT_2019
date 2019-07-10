@@ -5,7 +5,7 @@
 #           https://www.geeksforgeeks.org/write-bash-script-print-particular-line-file/
 #           http://evc-cit.info/cit052/pass_to_awk.html
 
-station_file="additional_MIT_station.txt"
+station_file="NGL_station_data.csv"
 grace_names_file="names.txt"
 grace_times_file="time_decimal_years.txt"
 
@@ -43,7 +43,7 @@ do
     #echo $shc_name $shc_time
     temp_file='temp.dat'
     #echo $lat $lon
-    ./evaluate_sphharm $shc_name $temp_file  $lat    -99      $lon     -99 10 visco #> /dev/null 
+    ./evaluate_sphharm $shc_name $temp_file  $lat    -99      $lon     -99 10 visco > /dev/null 
     #echo $shc_time $(cat temp.dat) >> "$(pwd)/$grace_save_folder_name/$name.txt"
     echo $shc_time $(cat $temp_file) >> "GRACE_visco_data_$name.txt"
     

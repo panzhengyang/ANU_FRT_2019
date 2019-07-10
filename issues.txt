@@ -11,3 +11,5 @@ Observations:
 In near south Brazil GPS time series is sloping downwards, GRACE is not able to have such high enough downward slope.
 
 get_time_stamps.sh file needs to be modified. It consideres all the years to have 365 days !! 
+
+Among the spherical harmonic coefficients, coefficients of sin(), i.e. S is zero for order m=0 of any degree all the time

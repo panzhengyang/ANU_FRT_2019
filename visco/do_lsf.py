@@ -1,20 +1,18 @@
 import numpy as np
 from pandas import read_csv
+from sys import argv
 
-data_pd_dataframe = read_csv('./ngl_above_50_slopes.txt',
+data_pd_dataframe = read_csv(argv[1],
         skiprows = 1,
         header = None,
         sep='\s+')
-name = np.asarray(data_pd_dataframe.iloc[:,0])
-no_points = np.asarray(data_pd_dataframe.iloc[:,3],dtype=float)
-slope = np.asarray(data_pd_dataframe.iloc[:,4],dtype=float)
+matrix_row_file_name = np.asarray(data_pd_dataframe.iloc[:,0])
+no_points = np.asarray(data_pd_dataframe.iloc[:,2],dtype=float)
+slope = np.asarray(data_pd_dataframe.iloc[:,1],dtype=float)
 
-matrix_row_file_prefix = './matrix_row/ngl_matrix_row_'
-matrix_row_file_suffix = '.txt'
+max_deg = argv[3] 
 
-max_deg = 80 
-
-tmp_data = np.asarray( read_csv( matrix_row_file_prefix+name[0]+matrix_row_file_suffix,
+tmp_data = np.asarray( read_csv( matrix_row_file_name[0],
     header = None,
     sep = '\s+',
     dtype = float ))
@@ -25,7 +23,7 @@ m = tmp_data[:,1]
 size = np.size(name)
 
 for i in np.linspace(1, size -1, size-1, dtype = int):
-    row = np.asarray( read_csv( matrix_row_file_prefix+name[i]+matrix_row_file_suffix,
+    row = np.asarray( read_csv( matrix_row_file_name[i],
         header = None,
         sep = '\s+',
         dtype = float ))[:,2]
@@ -50,7 +48,7 @@ AtAwi = (A.T*A).I
 print('done matrix inversion')
 x = AtAwi * A.T * b
 estimates = np.asarray(x)
-
+print(AtAwi)
 tmp_index = np.linspace(0,np.size(m)-1,np.size(m),dtype=int)
 tmp_flag = (tmp_index*0).astype(bool)       # default False
 tmp_flag[ m == 0 ] = True
@@ -59,6 +57,6 @@ n = np.insert(n,insert_index,n[tmp_flag])
 m = np.insert(m,insert_index,m[tmp_flag])
 estimates = np.insert(estimates,insert_index,0)
 
-np.savetxt('visco_coeff_ngl_above_50.txt',
+np.savetxt(argv[2],
         np.column_stack((n[0::2],m[0::2],estimates[0::2],estimates[1::2])),
         fmt='%d %d %1.12e %1.12e 0.0000e+00 0.0000e+00')

@@ -31,7 +31,7 @@ k = load_love_data[:,3]
 
 ############## Function values for visco-elastic and vertical elastic
 radius_of_earth = 6378100.0     # in meters m
-Fv = radius_of_earth*( 1.1677 * load_love_data[:,0]  + 0.5233)     # Fv values depends on the degree, first column of load_love_data is degree
+Fv = radius_of_earth*( 1.1677 * load_love_data[:,0]  - 0.5233)     # Fv values depends on the degree, first column of load_love_data is degree
 Fe =  radius_of_earth * h/(1+k) # This has inf and nan
 Fe[0] = 0   # in CM frame degree 0 and 1 cannot be calculated  
 Fe[1] = 0
@@ -76,8 +76,8 @@ for n in np.linspace(2 , max_degree , max_degree -1 , dtype = int ) :   # not fo
 
 out[0,0] = -1
 out[0,1] = -1 
-out[0,2] = Edot
-out[:,2] = out[:,2] * 1000    # converting to mm millimeter
+out[0,2] = Edot #* 1000
+out[:,2] = out[:,2] #* 1000    # converting to mm millimeter
 
 # format in multipling factors of : 1 C20 S20 C21 S21 C22 S22 C30 S30 C31 S31 .... 
 np.savetxt(out_file_name,out,fmt='%d %d %.18e')

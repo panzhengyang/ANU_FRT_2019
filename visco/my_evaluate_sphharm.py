@@ -8,8 +8,9 @@ from pandas import read_csv
 from sys import argv 
 
 
-coeff_file_name = './coeff_rate/mit_coeff_rates_BAKE.txt'
-lat = float(6.987) 
+coeff_file_name = './visco_coeff_mit_above_50.txt'
+#coeff_file_name = './coeff_rate/mit_coeff_rates_ALRT.txt'
+lat = float(66.987) 
 lon = float(-50.945) 
 max_deg = 80
 colat = ( 90 - lat )*np.pi/180.0 
@@ -31,8 +32,8 @@ k = load_love_data[:,3]
 
 
 ############## Function values for visco-elastic and vertical elastic
-Fv = 1.1677 * load_love_data[:,0]  + 0.5233     # Fv values depends on the degree, first column of load_love_data is degree
 radius_of_earth = 6378100.0     # in meters m
+Fv = radius_of_earth*(1.1677 * load_love_data[:,0]  - 0.5233)     # Fv values depends on the degree, first column of load_love_data is degree
 Fe =  radius_of_earth * h/(1+k) # This has inf and nan
 Fe[0] = 0   # in CM frame degree 0 and 1 cannot be calculated  
 Fe[1] = 0
@@ -41,7 +42,6 @@ Fe[1] = 0
 ############## Normalised Associated Legendre function
 # refer :   http://mitgcm.org/~mlosch/geoidcookbook/node11.html
 #           https://igortitara.files.wordpress.com/2010/04/handbook-of-math-for-engineers-and-scientists1.pdf
-# Not clear enough how -1^m 
 def nalf(n,m,x):
     # order degree input
     return lpmv(m,n,x) * (-1)**m * sqrt( (2-float(m==0)) * (2.0*n + 1) * fact(n-m)/fact(n+m) )
@@ -55,11 +55,14 @@ S = data[:,3].astype(float)
 
 elastic = 0.0
 visco_elastic = 0.0
+geoid = 0.0
 for i in range( np.size(n)): 
     elastic         += nalf( n[i] , m[i] , cos(colat) ) * Fe[n[i]] * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
     #visco_elastic   += nalf( n[i] , m[i] , cos(colat) ) * Fv[n[i]] * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
-    #visco_elastic   += nalf( n[i] , m[i] , cos(colat) ) * radius_of_earth*(1.1677*n[i] + 0.5233) * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
-    visco_elastic   += nalf( n[i] , m[i] , cos(colat) ) * radius_of_earth*(2.0*n[i] + 1.0) * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
+    visco_elastic   += nalf( n[i] , m[i] , cos(colat) ) * radius_of_earth*(1.1677*n[i] - 0.5233) * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
+    #visco_elastic   += nalf( n[i] , m[i] , cos(colat) ) * radius_of_earth*(2.0*n[i] + 1.0) * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
+    geoid           += nalf( n[i] , m[i] , cos(colat) ) * radius_of_earth * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
 
-print( elastic*1000 )
-print( visco_elastic*1000 )
+print('elastic :\t' ,elastic*1000 )
+print( 'visco elastic :\t', visco_elastic*1000 )
+print( 'geoid  :\t', geoid*1000 )

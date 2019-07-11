@@ -33,27 +33,30 @@ longitude = float(sys.argv[3])
 
 longitue = longitude - 360.0*bool(longitude>180)
 
-############## For MIT 
-gps_data_file = '../MIT_GPS_data/GPS_data_'+station_name+'.txt'
-gps_data_pd_dataframe = pd.read_csv(gps_data_file , 
-        delimiter = '\s+',
-        header = None,
-        skiprows = 0)
-gps_data = np.asarray(gps_data_pd_dataframe )
+if( sys.argv[4] == 'mit' or sys.argv[4] == 'MIT' ):
+    ############## For MIT 
+    gps_data_file = '../MIT_GPS_data/GPS_data_'+station_name+'.txt'
+    gps_data_pd_dataframe = pd.read_csv(gps_data_file , 
+            delimiter = '\s+',
+            header = None,
+            skiprows = 0)
+    gps_data = np.asarray(gps_data_pd_dataframe )
 
-Tgps , Ugps , USgps = gps_data[:,0].astype(float) , gps_data[:,19].astype(float) , gps_data[:,25].astype(float)
-Ugps = Ugps * 1000      # converting to mm millimeter
+    Tgps , Ugps , USgps = gps_data[:,0].astype(float) , gps_data[:,19].astype(float) , gps_data[:,25].astype(float)
+    Ugps = Ugps #* 1000      # converting to mm millimeter
 
-############### For NGL 
-#gps_data_file = '../NGL_GPS_data/GPS_data_'+station_name+'.txt'
-#gps_data_pd_dataframe = pd.read_csv(gps_data_file , 
-#        delimiter = '\s+',
-#        header = None,
-#        skiprows = 1)
-#gps_data = np.asarray(gps_data_pd_dataframe )
-#
-#Tgps , UIgps , UFgps , USgps = gps_data[:,2].astype(float) , gps_data[:,11].astype(float) , gps_data[:,12].astype(float) , gps_data[:,16].astype(float)
-#Ugps = (UIgps+UFgps) * 1000      # converting to mm millimeter
+elif( sys.argv[4] == 'ngl' or sys.argv[4] == 'NGL' ):
+    ############## For NGL 
+    gps_data_file = '../NGL_GPS_data/GPS_data_'+station_name+'.txt'
+    gps_data_pd_dataframe = pd.read_csv(gps_data_file , 
+            delimiter = '\s+',
+            header = None,
+            skiprows = 1)
+    gps_data = np.asarray(gps_data_pd_dataframe )
+
+    Tgps , UIgps , UFgps , USgps = gps_data[:,2].astype(float) , gps_data[:,11].astype(float) , gps_data[:,12].astype(float) , gps_data[:,16].astype(float)
+    Ugps = (UIgps+UFgps) #* 1000      # converting to mm millimeter
+
 
 ############## GRACE time window
 grace_selection_flag = np.logical_and( Tgrace > Tmin , Tgrace < Tmax ) 
@@ -122,7 +125,7 @@ for i in range(coeff_file_rows):
 coeff_rates[:,0] = coeff[:,0,0]
 coeff_rates[:,1] = coeff[:,1,0] 
 
-np.savetxt('mit_coeff_rates_'+station_name+'.txt',coeff_rates,fmt='%d\t%d\t%1.12e\t%1.12e\t%1.4e\t%1.4e')
+np.savetxt(sys.argv[5]+sys.argv[4]+'_coeff_rates_'+station_name+'.txt',coeff_rates,fmt='%d\t%d\t%1.12e\t%1.12e\t%1.4e\t%1.4e')
 print(station_name,'\t',
         "{0:.10f}".format(latitude) ,'\t', 
         "{0:.10f}".format(longitue) ,'\t', 

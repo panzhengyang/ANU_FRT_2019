@@ -20,10 +20,15 @@ if len(sys.argv)<3:
 grace_data_file_name = "GRACE_data/GRACE_data_"+sys.argv[1]+".txt"
 
 min_data_points = 3
+visco_flag = False
 
 if len(sys.argv) > 3 :
-    grace_data_file_name = sys.argv[3]
     # header needs to be removed from this file
+    if ( sys.argv[3] == 'V' ):
+        grace_data_file_name = "GRACE_data/GRACE_visco_data_"+sys.argv[1]+".txt"
+        visco_flag = True
+    else: 
+        grace_data_file_name = sys.argv[3]
 
 grace_data = pd.read_csv(grace_data_file_name,
         delimiter=' ',
@@ -32,8 +37,11 @@ grace_data = pd.read_csv(grace_data_file_name,
         dtype=float)
 grace_data = np.asarray(grace_data)
 
-# time north north_sigma east east_sigma up up_sigma 
-Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,1].astype(float) , grace_data[:,2].astype(float) , grace_data[:,3].astype(float), grace_data[:,4].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
+if(visco_flag):
+    Tgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,3].astype(float) , grace_data[:,4].astype(float)
+else:
+    # time north north_sigma east east_sigma up up_sigma 
+    Tgrace , Ngrace , NSgrace , Egrace , ESgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,1].astype(float) , grace_data[:,2].astype(float) , grace_data[:,3].astype(float), grace_data[:,4].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
 
 #print(grace_data.shape)
 '''
@@ -150,11 +158,11 @@ BTgrace = Tgrace - np.pad(DTgrace,(1,0),'constant',constant_values = (0,0)) / 2
 
 
 ReTgps = Tgrace
-ReNgps = Ngrace * 0
-ReEgps = Egrace * 0
+#ReNgps = Ngrace * 0
+#ReEgps = Egrace * 0
 ReUgps = Ugrace * 0
-ReNSgps = NSgrace * 0
-ReESgps = ESgrace * 0
+#ReNSgps = NSgrace * 0
+#ReESgps = ESgrace * 0
 ReUSgps = USgrace * 0
 data_flag = (Tgrace * 0).astype(bool)
 
@@ -166,31 +174,31 @@ for i in range(np.size(Tgrace)):
     #print(selection_flag.sum())
     #print(data_flag[i])
 
-    ReNgps[i] = Ngps[ selection_flag ].mean()
-    ReEgps[i] = Egps[ selection_flag ].mean()
+    #ReNgps[i] = Ngps[ selection_flag ].mean()
+    #ReEgps[i] = Egps[ selection_flag ].mean()
     ReUgps[i] = Ugps[ selection_flag ].mean()
     
-    ReNSgps[i] = NSgps[ selection_flag ].mean()
-    ReESgps[i] = ESgps[ selection_flag ].mean()
+    #ReNSgps[i] = NSgps[ selection_flag ].mean()
+    #ReESgps[i] = ESgps[ selection_flag ].mean()
     ReUSgps[i] = USgps[ selection_flag ].mean()
 
 
 if data_flag.sum() > min_data_points :
     # selecting data only when both GRACE and GPS are simultaniously available
     ReTgps = ReTgps[data_flag]
-    ReNgps = ReNgps[data_flag]
-    ReEgps = ReEgps[data_flag]
+    #ReNgps = ReNgps[data_flag]
+    #ReEgps = ReEgps[data_flag]
     ReUgps = ReUgps[data_flag]
-    ReNSgps = ReNSgps[data_flag]
-    ReESgps = ReESgps[data_flag]
+    #ReNSgps = ReNSgps[data_flag]
+    #ReESgps = ReESgps[data_flag]
     ReUSgps = ReUSgps[data_flag]
 
     ReTgrace = Tgrace[data_flag]
-    ReNgrace = Ngrace[data_flag]
-    ReEgrace = Egrace[data_flag]
+    #ReNgrace = Ngrace[data_flag]
+    #ReEgrace = Egrace[data_flag]
     ReUgrace = Ugrace[data_flag]
-    ReNSgrace = NSgrace[data_flag]
-    ReESgrace = ESgrace[data_flag]
+    #ReNSgrace = NSgrace[data_flag]
+    #ReESgrace = ESgrace[data_flag]
     ReUSgrace = USgrace[data_flag]
     
     
@@ -203,15 +211,15 @@ if data_flag.sum() > min_data_points :
     # Removing mean value from GPS data
     # This process should not be done initially as mean should be calculated based on data when GRACE data is not present
     # This needs further inspection
-    ReNgps = ReNgps - ReNgps[trf].mean()
-    ReEgps = ReEgps - ReEgps[trf].mean()
+    #ReNgps = ReNgps - ReNgps[trf].mean()
+    #ReEgps = ReEgps - ReEgps[trf].mean()
     ReUgps = ReUgps - ReUgps[trf].mean()
 
     # Removing mean value from GRACE data
     # This process is already done for the data but the mean is for all the original data and now not all the initial data is being used
     # This needs further inspection
-    ReNgrace = ReNgrace - ReNgrace[trf].mean()
-    ReEgrace = ReEgrace - ReEgrace[trf].mean()
+    #ReNgrace = ReNgrace - ReNgrace[trf].mean()
+    #ReEgrace = ReEgrace - ReEgrace[trf].mean()
     ReUgrace = ReUgrace - ReUgrace[trf].mean()
 
     # Calculating the RMS values

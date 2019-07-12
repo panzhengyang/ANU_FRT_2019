@@ -12,7 +12,6 @@ coeff_file_name = './visco_coeff_mit_above_50.txt'
 #coeff_file_name = './coeff_rate/mit_coeff_rates_ALRT.txt'
 lat = float(66.987) 
 lon = float(-50.945) 
-max_deg = 80
 colat = ( 90 - lat )*np.pi/180.0 
 lon = ( lon - 360.0*float(lon > 180.0) )*np.pi/180.0 
 

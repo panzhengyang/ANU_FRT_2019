@@ -64,7 +64,7 @@ YOFFSET="-Y$y_offset""c"
 ORIENTATION="-P"
 common_additional_parameters="--PS_MEDIA=$page_width""c""x$page_height""c"
 #pscoast_parameters="-Gdarkseagreen2 -Scornflowerblue -W0p -Dh -N1/0.25p"
-pscoast_parameters="-W0p -Dc -A10000 -N1/0.05p -BWSNE+t$title"
+pscoast_parameters="-W0p -Dh -A10000 -N1/0.05p -BWSNE+t$title"
 
 gmt pscoast $PROJ $LIMS $pscoast_parameters $XOFFSET $YOFFSET -K $ORIENTATION $common_additional_parameters > $PSFILE
 gmt psbasemap $PROJ $LIMS -Bxa20g10 -Bya30g5 -BWeSn \

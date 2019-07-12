@@ -10,7 +10,7 @@ matrix_row_file_name = np.asarray(data_pd_dataframe.iloc[:,0])
 no_points = np.asarray(data_pd_dataframe.iloc[:,2],dtype=float)
 slope = np.asarray(data_pd_dataframe.iloc[:,1],dtype=float)
 
-max_deg = argv[3] 
+max_deg = int(argv[3]) 
 
 tmp_data = np.asarray( read_csv( matrix_row_file_name[0],
     header = None,
@@ -20,7 +20,7 @@ matrix = tmp_data[:,2]
 n = tmp_data[:,0]
 m = tmp_data[:,1]
 
-size = np.size(name)
+size = np.size(matrix_row_file_name)
 
 for i in np.linspace(1, size -1, size-1, dtype = int):
     row = np.asarray( read_csv( matrix_row_file_name[i],

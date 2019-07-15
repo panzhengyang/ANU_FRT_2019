@@ -3,7 +3,7 @@ from pandas import read_csv
 from sys import argv
 
 data_pd_dataframe = read_csv(argv[1],
-        skiprows = 1,
+        skiprows = 0,
         header = None,
         sep='\s+')
 matrix_row_file_name = np.asarray(data_pd_dataframe.iloc[:,0])
@@ -21,7 +21,6 @@ n = tmp_data[:,0]
 m = tmp_data[:,1]
 
 size = np.size(matrix_row_file_name)
-
 for i in np.linspace(1, size -1, size-1, dtype = int):
     row = np.asarray( read_csv( matrix_row_file_name[i],
         header = None,
@@ -29,7 +28,20 @@ for i in np.linspace(1, size -1, size-1, dtype = int):
         dtype = float ))[:,2]
     matrix = np.column_stack((matrix,row))
 
+
+'''
 Edot = matrix[0,:]
+'''
+if(len(argv)>5):
+    if(argv[4] == 'do'):
+        previous_Edot_data = np.asarray( read_csv( argv[5] , header=None , dtype=float))
+        Edot = matrix[0,:]-previous_Edot_data[:,0]
+    else:
+        print( 'give correct aurguments')
+else:
+    Edot = matrix[0,:]
+'''#'''
+
 max_index = int( (max_deg+max_deg*(max_deg+1)/2)*2-4 )        # which includes sin terms with order m = 0
 n = n[1:max_index+1]
 m = m[1:max_index+1]
@@ -48,7 +60,6 @@ AtAwi = (A.T*A).I
 print('done matrix inversion')
 x = AtAwi * A.T * b
 estimates = np.asarray(x)
-print(AtAwi)
 tmp_index = np.linspace(0,np.size(m)-1,np.size(m),dtype=int)
 tmp_flag = (tmp_index*0).astype(bool)       # default False
 tmp_flag[ m == 0 ] = True

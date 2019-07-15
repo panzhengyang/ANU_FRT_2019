@@ -9,9 +9,11 @@ from sys import argv
 
 
 coeff_file_name = './visco_coeff_mit_above_50.txt'
-#coeff_file_name = './coeff_rate/mit_coeff_rates_ALRT.txt'
-lat = float(66.987) 
-lon = float(-50.945) 
+coeff_file_name = argv[1]
+lat = float(argv[2] )
+lon = float(argv[3] )
+#lat = float(66.987) 
+#lon = float(-50.945) 
 colat = ( 90 - lat )*np.pi/180.0 
 lon = ( lon - 360.0*float(lon > 180.0) )*np.pi/180.0 
 
@@ -62,6 +64,7 @@ for i in range( np.size(n)):
     #visco_elastic   += nalf( n[i] , m[i] , cos(colat) ) * radius_of_earth*(2.0*n[i] + 1.0) * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
     geoid           += nalf( n[i] , m[i] , cos(colat) ) * radius_of_earth * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
 
-print('elastic :\t' ,elastic*1000 )
-print( 'visco elastic :\t', visco_elastic*1000 )
-print( 'geoid  :\t', geoid*1000 )
+#print('elastic :\t' ,elastic*1000 )
+#print( 'visco elastic :\t', visco_elastic*1000 )
+#print( 'geoid  :\t', geoid*1000 )
+print(elastic)

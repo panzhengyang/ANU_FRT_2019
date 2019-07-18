@@ -29,18 +29,17 @@ for i in np.linspace(1, size -1, size-1, dtype = int):
     matrix = np.column_stack((matrix,row))
 
 
-'''
 Edot = matrix[0,:]
-'''
+
 if(len(argv)>5):
     if(argv[4] == 'do'):
-        previous_Edot_data = np.asarray( read_csv( argv[5] , header=None , dtype=float))
-        Edot = matrix[0,:]-previous_Edot_data[:,0]
+        previous_data = np.asarray( read_csv( argv[5] , header=None , dtype=float))[:,0]
+        barray = slope - Edot - previous_data
     else:
         print( 'give correct aurguments')
 else:
-    Edot = matrix[0,:]
-'''#'''
+    barray = slope - Edot
+
 
 max_index = int( (max_deg+max_deg*(max_deg+1)/2)*2-4 )        # which includes sin terms with order m = 0
 n = n[1:max_index+1]
@@ -54,10 +53,11 @@ m = m[tmp_flag]
 matrix = matrix[tmp_flag,:]
 
 A = np.asmatrix( matrix ).T
-b = np.asmatrix( slope - Edot ).T
-print('starting matrix inversion')
+#b = np.asmatrix( slope - Edot ).T
+b = np.asmatrix(barray).T
+#print('starting matrix inversion')
 AtAwi = (A.T*A).I
-print('done matrix inversion')
+#print('done matrix inversion')
 x = AtAwi * A.T * b
 estimates = np.asarray(x)
 tmp_index = np.linspace(0,np.size(m)-1,np.size(m),dtype=int)

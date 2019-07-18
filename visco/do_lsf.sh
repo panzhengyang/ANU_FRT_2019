@@ -7,7 +7,7 @@ ngl_matrix_row_file_name_prefix='./matrix_row/ngl_matrix_row_'
 matrix_row_file_name_suffix='.txt'
 mit_slopes_file='./mit_above_50_slopes.txt'
 ngl_slopes_file='./ngl_above_50_slopes.txt'
-max_deg='4'
+max_deg='3'
 temp_python_input_file='temp_python_input.txt'
 rm $temp_python_input_file 2> /dev/null
 
@@ -15,9 +15,10 @@ while IFS= read -r string
 do 
   stringarray=($string)
   name=${stringarray[0]}
-  lat=${stringarray[1]}
-  lon=${stringarray[2]}
-  code=${stringarray[3]}
+  #lat=${stringarray[1]}
+  #lon=${stringarray[2]}
+  #code=${stringarray[3]}
+  code=${stringarray[1]}
   if [ $code == M ] 
   then
     matrix_row_file_name=$mit_matrix_row_file_name_prefix$name$matrix_row_file_name_suffix

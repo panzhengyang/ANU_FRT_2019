@@ -15,5 +15,5 @@ do
   lon=${stringarray[2]}
 
   python3 -W ignore ./my_evaluate_sphharm.py $coeff_file $lat $lon >> $Edot_file
-  echo $name $lat $lon
+#  echo $name $lat $lon
 done < $list_file 

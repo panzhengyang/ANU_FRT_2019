@@ -57,14 +57,16 @@ S = data[:,3].astype(float)
 elastic = 0.0
 visco_elastic = 0.0
 geoid = 0.0
+least_square_compute = 0.0
 for i in range( np.size(n)): 
     elastic         += nalf( n[i] , m[i] , cos(colat) ) * Fe[n[i]] * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
     #visco_elastic   += nalf( n[i] , m[i] , cos(colat) ) * Fv[n[i]] * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
     visco_elastic   += nalf( n[i] , m[i] , cos(colat) ) * radius_of_earth*(1.1677*n[i] - 0.5233) * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
     #visco_elastic   += nalf( n[i] , m[i] , cos(colat) ) * radius_of_earth*(2.0*n[i] + 1.0) * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
     geoid           += nalf( n[i] , m[i] , cos(colat) ) * radius_of_earth * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
+    least_square_compute  += nalf( n[i] , m[i] , cos(colat) ) * ( Fv[n[i]] - Fe[n[i]] )* ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
 
-#print('elastic :\t' ,elastic*1000 )
-#print( 'visco elastic :\t', visco_elastic*1000 )
+print('elastic :\t' ,elastic*1000 )
+print( 'visco elastic :\t', visco_elastic*1000 )
 #print( 'geoid  :\t', geoid*1000 )
-print(elastic)
+print(least_square_compute)

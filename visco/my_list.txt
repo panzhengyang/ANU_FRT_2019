@@ -1,0 +1,27 @@
+ALRT M 
+HOFN M B iceland
+KELY M 
+KIRU M negative slope
+MAR6 M 
+MDVJ M A 
+METS M A
+NYA1 M 
+NYAL M A
+ONSA M 
+QAQ1 M 
+REYK M B iceland
+RIGA M A 
+SCOR M
+SPT0 M negative slope 
+THU2 M 
+THU3 M 
+TRO1 M 
+TROM M 
+VAAS M 
+BAKE M 
+CHUR M negative slope
+DUBO M A 
+FLIN M negative slope  
+HOLM M negative slope 
+PRDS M 
+YELL M negative slope 

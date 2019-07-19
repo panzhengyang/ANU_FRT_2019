@@ -1,2 +1,18 @@
 awk '{ if(($12==0)&&($4>180)&&(      ( ($2>60)&&($3<-10)&&($3>-80) ) || ( ($3>5)&&($3<40)&&($2>55) )  )) { print $0 }}' NGL_result_2011.3333.txt > tmp.txt && ./locate.sh tmp.txt 8
+( ($2>60)&&($3<-10+360)&&($3>-80+360) )   ||    ( ($2>60)&&($3<-10)&&($3>-80) ) 
+
+AND No Japan : 
+( (lon>128)&&(lon<150)&&(lat>30)&&(lat<50) )
+AND No Iceland : 
+( (lat > 67)&&(lon < -25)&&(lat < 60)&&(lon > -10) )
+
+OR greenland (has one station from canada): 
+( (lat > 60) && (lon > -75) && (lon < -10) )
+OR Scandinavia : 
+( (lon>5)&&(lon<40)&&(lat>50) ) 
+OR Canada : 
+( (lat>50)&&(lon>-120)&&(lon<-80) )
+OR Antarctica : 
+(lat < -160)
+
 

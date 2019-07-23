@@ -13,6 +13,6 @@ OR Scandinavia :
 OR Canada : 
 ( (lat>50)&&(lon>-120)&&(lon<-80) )
 OR Antarctica : 
-(lat < -160)
+(lat < -60)
 
 

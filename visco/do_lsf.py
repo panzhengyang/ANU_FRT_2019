@@ -34,7 +34,7 @@ Edot = matrix[0,:]
 if(len(argv)>5):
     if(argv[4] == 'do'):
         previous_data = np.asarray( read_csv( argv[5] , header=None , dtype=float))[:,0]
-        barray = slope - Edot - previous_data
+        barray = slope - ( Edot + previous_data )
     else:
         print( 'give correct aurguments')
 else:

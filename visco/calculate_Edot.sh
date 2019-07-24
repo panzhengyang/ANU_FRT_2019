@@ -14,6 +14,14 @@ do
   lat=${stringarray[1]}
   lon=${stringarray[2]}
 
-  python3 -W ignore ./my_evaluate_sphharm.py $coeff_file $lat $lon >> $Edot_file
+  #python3 -W ignore ./my_evaluate_sphharm.py $coeff_file $lat $lon >> $Edot_file
+  
+  ./evaluate_sphharm $coeff_file temp.dat $lat -99 $lon -99 1 edefn > /dev/null
+  elastic="$( awk '{ print $5/1000.0 }' temp.dat )"
+  ./evaluate_sphharm $coeff_file temp.dat $lat -99 $lon -99 1 visco > /dev/null
+  visco_elastic="$( awk '{ print $3/1000.0 }' temp.dat )"
+  echo "$visco_elastic $elastic" | awk '{ print $1-$2 }' >> $Edot_file
+
+
 #  echo $name $lat $lon
 done < $list_file 

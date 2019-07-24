@@ -382,11 +382,13 @@ c            At the same time, scale it to mm and set long range to -180/180
           if ( visco.eq.'north' ) sumdef = -sumdef
           if ( visco.eq.'edefn' ) then
             sumdef_north = -sumdef_north
-          write(luout,'(2f10.2,3f9.3,3f8.3)')rlat*180.d0/pi
+          write(luout,'(2f10.6,3f9.3,3f8.3)')rlat*180.d0/pi            ! commented by vikram 
+!          write(luout,'(2f10.6,3es26.20,3f8.3)')rlat*180.d0/pi
      .         ,rlong*180.d0/pi,sumdef_north,sumdef_east,sumdef_up
      .         ,dsqrt(sumvar_north),dsqrt(sumvar_east),dsqrt(sumvar_up)
           else
-            write(luout,'(2f10.2,2f30.14)')rlat*180.d0/pi
+            write(luout,'(2f10.6,2f30.14)')rlat*180.d0/pi            ! commented by vikram 
+!            write(luout,'(2f10.6,2f30.14)')rlat*180.d0/pi
      .         ,rlong*180.d0/pi,1.d0*sumdef,dsqrt(sumvar)
           endif
         enddo

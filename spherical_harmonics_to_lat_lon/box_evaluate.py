@@ -6,6 +6,8 @@ from numpy import sin
 import numpy as np 
 from pandas import read_csv
 from sys import argv 
+import matplotlib.pyplot as plt 
+from PIL import Image
 
 
 coeff_file_name = './visco_coeff_mit_above_50.txt'
@@ -14,8 +16,35 @@ lat = float(argv[2] )
 lon = float(argv[3] )
 #lat = float(66.987) 
 #lon = float(-50.945) 
+
+min_lat = float(argv[2])
+max_lat = float(argv[3])
+min_lon = float(argv[4])
+max_lon = float(argv[5])
+
+lon_resolution = int(argv[6])
+lat_resolution = int( lon_resolution*abs((max_lat - min_lat)/(max_lon - min_lon)))
+
+lat_array = np.linspace(max_lat,min_lat,lat_resolution)
+lon_array = np.linspace(min_lon,max_lon,lon_resolution)
+
+lon , lat = np.meshgrid(lon_array,lat_array)
+
+abs_range = 15
+#print(lon)
+#print(lat)
+
+
 colat = ( 90 - lat )*np.pi/180.0 
-lon = ( lon - 360.0*float(lon > 180.0) )*np.pi/180.0 
+lon = ( lon - 360.0*(lon > 180.0).astype(float) )*np.pi/180.0 
+
+
+############## station_list
+station_list_file = '../visco/selected_list.txt'
+station_pd_dataframe = read_csv(station_list_file, header = None , sep = '\s+')
+station_list = np.asarray(station_pd_dataframe)
+lat_list = station_list[:,1]
+lon_list = station_list[:,2]
 
 
 ############## Reading Load Love numbers
@@ -65,8 +94,37 @@ for i in range( np.size(n)):
     #visco_elastic   += nalf( n[i] , m[i] , cos(colat) ) * radius_of_earth*(2.0*n[i] + 1.0) * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
     geoid           += nalf( n[i] , m[i] , cos(colat) ) * radius_of_earth * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
     least_square_compute  += nalf( n[i] , m[i] , cos(colat) ) * ( Fv[n[i]] - Fe[n[i]] )* ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
+    print(n[i],m[i])
 
-print('elastic :\t' ,elastic*1000 )
-print( 'visco elastic :\t', visco_elastic*1000 )
+#print('elastic :\t' ,elastic*1000 )
+#print( 'visco elastic :\t', visco_elastic*1000 )
 #print( 'geoid  :\t', geoid*1000 )
-print(least_square_compute)
+#print(least_square_compute)
+
+#'''
+mask = np.logical_or((visco_elastic*1000 > abs_range ),(visco_elastic*1000 < -abs_range ))
+visco_elastic = np.ma.masked_where(mask,visco_elastic)
+#'''
+
+
+plt.figure(0)
+
+pil_img = Image.open('../images/map.png')
+pil_img.load()
+map_data = np.asarray(pil_img)[:,:,0]
+
+coast = map_data
+
+#'''
+map_mask = coast > 200
+coast = 255*(coast>200).astype(float)
+coast = np.ma.masked_where(map_mask,coast)
+#'''
+
+plt.imshow(visco_elastic*1000,extent=[min_lon,max_lon,min_lat,max_lat],alpha = 1,cmap='bwr')
+plt.colorbar()
+plt.imshow(coast*1000,extent=[min_lon,max_lon,min_lat,max_lat],alpha = 1,cmap='gray')
+plt.scatter(lon_list,lat_list,s=10,c='g')
+plt.imshow(visco_elastic*1000,extent=[min_lon,max_lon,min_lat,max_lat],alpha = 0)
+
+plt.show()

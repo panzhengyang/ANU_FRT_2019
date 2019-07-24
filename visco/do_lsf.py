@@ -55,10 +55,26 @@ matrix = matrix[tmp_flag,:]
 A = np.asmatrix( matrix ).T
 #b = np.asmatrix( slope - Edot ).T
 b = np.asmatrix(barray).T
-#print('starting matrix inversion')
-AtAwi = (A.T*A).I
-#print('done matrix inversion')
-x = AtAwi * A.T * b
+
+
+
+
+
+
+##print('starting matrix inversion')
+#AtAwi = (A.T*A).I
+##print('done matrix inversion')
+#x = AtAwi * A.T * b
+#print(x) 
+
+x = np.linalg.lstsq(A,b,rcond=None)
+x = x[0]
+#print(x)
+
+
+
+
+
 estimates = np.asarray(x)
 tmp_index = np.linspace(0,np.size(m)-1,np.size(m),dtype=int)
 tmp_flag = (tmp_index*0).astype(bool)       # default False

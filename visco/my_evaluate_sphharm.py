@@ -66,7 +66,7 @@ for i in range( np.size(n)):
     geoid           += nalf( n[i] , m[i] , cos(colat) ) * radius_of_earth * ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
     least_square_compute  += nalf( n[i] , m[i] , cos(colat) ) * ( Fv[n[i]] - Fe[n[i]] )* ( C[i]*cos(m[i]*lon) + S[i]*sin(m[i]*lon) ) 
 
-#print('elastic :\t' ,elastic*1000 )
-#print( 'visco elastic :\t', visco_elastic*1000 )
+print('elastic :\t' ,elastic*1000 )
+print( 'visco elastic :\t', visco_elastic*1000 )
 #print( 'geoid  :\t', geoid*1000 )
 print(least_square_compute)

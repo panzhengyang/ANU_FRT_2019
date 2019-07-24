@@ -1,5 +1,9 @@
 list_file=$1
 python_output_file=$2
+max_deg=$3
+repeate_message=$6
+telling_do_to_python=$4
+previous_iteration_file_name=$5
 #list_file='./list.txt'
 #python_output_file='./temp_test.txt'
 mit_matrix_row_file_name_prefix='./matrix_row/mit_matrix_row_'
@@ -9,10 +13,9 @@ matrix_row_file_name_suffix='.txt'
 #ngl_slopes_file='./ngl_above_50_slopes.txt'
 mit_slopes_file='./selected_mit_slopes.txt'
 ngl_slopes_file='./filtered_only_ngl_slopes.txt'
-max_deg='5'
 temp_python_input_file='temp_python_input.txt'
 
-if [ -z "$5" ]
+if [ -z $repeate_message ]
 then
   rm $temp_python_input_file 2> /dev/null
   while IFS= read -r string
@@ -40,5 +43,5 @@ then
     fi
   done < $list_file
 fi
-python ./do_lsf.py $temp_python_input_file $python_output_file $max_deg $3 $4
+python ./do_lsf.py $temp_python_input_file $python_output_file $max_deg $telling_do_to_python $previous_iteration_file_name
 

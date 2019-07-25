@@ -28,3 +28,5 @@ WARN N
 HOE2 N
 CCJM N
 BOGA N
+SUMM N crazy downward gps in greenland 
+UPVK N

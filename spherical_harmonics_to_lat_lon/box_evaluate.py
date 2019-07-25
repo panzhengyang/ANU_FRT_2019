@@ -9,13 +9,7 @@ from sys import argv
 import matplotlib.pyplot as plt 
 from PIL import Image
 
-
-coeff_file_name = './visco_coeff_mit_above_50.txt'
 coeff_file_name = argv[1]
-lat = float(argv[2] )
-lon = float(argv[3] )
-#lat = float(66.987) 
-#lon = float(-50.945) 
 
 min_lat = float(argv[2])
 max_lat = float(argv[3])
@@ -40,7 +34,7 @@ lon = ( lon - 360.0*(lon > 180.0).astype(float) )*np.pi/180.0
 
 
 ############## station_list
-station_list_file = '../visco/selected_list.txt'
+station_list_file = argv[7]
 station_pd_dataframe = read_csv(station_list_file, header = None , sep = '\s+')
 station_list = np.asarray(station_pd_dataframe)
 lat_list = station_list[:,1]
@@ -123,7 +117,7 @@ coast = np.ma.masked_where(map_mask,coast)
 
 plt.imshow(visco_elastic*1000,extent=[min_lon,max_lon,min_lat,max_lat],alpha = 1,cmap='bwr')
 plt.colorbar()
-plt.imshow(coast*1000,extent=[min_lon,max_lon,min_lat,max_lat],alpha = 1,cmap='gray')
+plt.imshow(coast*1000,extent=[-180,180,-90,90],alpha = 1,cmap='gray')
 plt.scatter(lon_list,lat_list,s=10,c='g')
 plt.imshow(visco_elastic*1000,extent=[min_lon,max_lon,min_lat,max_lat],alpha = 0)
 

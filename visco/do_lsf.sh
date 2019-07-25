@@ -12,7 +12,7 @@ matrix_row_file_name_suffix='.txt'
 #mit_slopes_file='./mit_above_50_slopes.txt'
 #ngl_slopes_file='./ngl_above_50_slopes.txt'
 mit_slopes_file='./selected_mit_slopes.txt'
-ngl_slopes_file='./filtered_only_ngl_slopes.txt'
+ngl_slopes_file='./all_ngl_slopes.txt'
 temp_python_input_file='temp_python_input.txt'
 
 if [ -z $repeate_message ]

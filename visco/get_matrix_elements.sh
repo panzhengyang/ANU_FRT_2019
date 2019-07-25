@@ -1,5 +1,5 @@
 
-input_file_name='./filtered_only_ngl.txt'
+input_file_name='./filtered_additional_NGL_greenland_110_slopes.txt'
 
 python_input_file_prefix='./coeff_rate/ngl_coeff_rates_'
 python_input_file_suffix='.txt'

@@ -1,5 +1,5 @@
 input_file='./filtered_only_ngl.txt'
-out_file='filtered_only_ngl_slopes.txt'
+out_file='./filtered_only_ngl_slopes.txt'
 gps_data='ngl'
 save_path='./coeff_rate/'
 rm $out_file 2> /dev/null 

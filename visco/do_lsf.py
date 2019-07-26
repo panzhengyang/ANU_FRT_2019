@@ -11,6 +11,7 @@ no_points = np.asarray(data_pd_dataframe.iloc[:,2],dtype=float)
 slope = np.asarray(data_pd_dataframe.iloc[:,1],dtype=float)
 
 max_deg = int(argv[3]) 
+lamda = float(argv[4]) 
 
 tmp_data = np.asarray( read_csv( matrix_row_file_name[0],
     header = None,
@@ -31,9 +32,9 @@ for i in np.linspace(1, size -1, size-1, dtype = int):
 
 Edot = matrix[0,:]
 
-if(len(argv)>5):
-    if(argv[4] == 'do'):
-        previous_data = np.asarray( read_csv( argv[5] , header=None , dtype=float))[:,0]
+if(len(argv)>6):
+    if(argv[5] == 'do'):
+        previous_data = np.asarray( read_csv( argv[6] , header=None , dtype=float))[:,0]
         barray = slope - ( Edot + previous_data )
     else:
         print( 'give correct aurguments')
@@ -59,17 +60,21 @@ b = np.asmatrix(barray).T
 
 
 
+AtA = A.T*A
+#print(np.shape(AtA))
 
+identity_matrix = np.asmatrix( np.identity(np.shape(AtA)[0]) )
+#print(identity_matrix)
 
-##print('starting matrix inversion')
-#AtAwi = (A.T*A).I
-##print('done matrix inversion')
-#x = AtAwi * A.T * b
+#print('starting matrix inversion')
+AtAwi = (AtA + lamda * identity_matrix).I
+#print('done matrix inversion')
+x = AtAwi * A.T * b
 #print(x) 
 
-x = np.linalg.lstsq(A,b,rcond=None)
-x = x[0]
-#print(x)
+#x = np.linalg.lstsq(A,b,rcond=None)
+#x = x[0]
+##print(x)
 
 
 

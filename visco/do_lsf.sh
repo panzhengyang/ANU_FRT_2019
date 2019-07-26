@@ -1,9 +1,10 @@
 list_file=$1
 python_output_file=$2
 max_deg=$3
-repeate_message=$6
-telling_do_to_python=$4
-previous_iteration_file_name=$5
+repeate_message=$7
+telling_do_to_python=$5
+previous_iteration_file_name=$6
+lamda=$4
 #list_file='./list.txt'
 #python_output_file='./temp_test.txt'
 mit_matrix_row_file_name_prefix='./matrix_row/mit_matrix_row_'
@@ -43,5 +44,5 @@ then
     fi
   done < $list_file
 fi
-python ./do_lsf.py $temp_python_input_file $python_output_file $max_deg $telling_do_to_python $previous_iteration_file_name
+python ./do_lsf.py $temp_python_input_file $python_output_file $max_deg $lamda $telling_do_to_python $previous_iteration_file_name
 

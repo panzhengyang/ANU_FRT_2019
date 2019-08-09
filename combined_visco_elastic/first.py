@@ -20,7 +20,7 @@ if len(sys.argv)<3:
     print('python3 -W ignore this_file_name station_code GPS_dataset_code')
     sys.exit()
 
-grace_data_file_name = "GRACE_data/GRACE_data_"+sys.argv[1]+".txt"
+grace_data_file_name = "GRACE_data/GRACE_data_"+sys.argv[2]+".txt"
 
 min_data_points = 3
 
@@ -35,9 +35,9 @@ grace_data = np.asarray(grace_data)
 Tgrace , Ugrace , USgrace = grace_data[:,0].astype(float) , grace_data[:,5].astype(float) , grace_data[:,6].astype(float)
 
 
-if sys.argv[2] == 'N' :
+if sys.argv[3] == 'N' :
     #''' For NGL         
-    gps_data_file_name = "NGL_GPS_data/GPS_data_"+sys.argv[1]+".txt"
+    gps_data_file_name = "NGL_GPS_data/GPS_data_"+sys.argv[2]+".txt"
     gps_data = read_csv(gps_data_file_name,
             delimiter='\s+',
             header=None,
@@ -56,7 +56,7 @@ if sys.argv[2] == 'N' :
 elif sys.argv[2] == 'M' :
 
     #''' For MIT        
-    gps_data_file_name = "MIT_GPS_data/GPS_data_"+sys.argv[1]+".txt"
+    gps_data_file_name = "MIT_GPS_data/GPS_data_"+sys.argv[2]+".txt"
     gps_data = read_csv(gps_data_file_name,
             delimiter='\s+',
             header=None,
@@ -72,7 +72,7 @@ elif sys.argv[2] == 'M' :
 
 # getting the latitude and longitude of the station from station data file 
 df=read_csv('station_data.txt',sep='\s+')
-st=df[df['name'].str.match(sys.argv[1])]
+st=df[df['name'].str.match(sys.argv[2])]
 lat = float(st.iloc[0,1])
 lon = float(st.iloc[0,2])
 if lon > 180:
@@ -82,7 +82,7 @@ colat = ( 90-lat )*np.pi/180
 lat = lat*np.pi/180
 lon = lon*np.pi/180
 
-coeff_file_name = sys.argv[3]
+coeff_file_name = sys.argv[1]
 
 ############## Reading Load Love numbers
 # This is not done in usual way since the symbol for exponent in Load_Love2_CM.dat file is 'D' rather than 'E'. 'D' cannot be interpretted as exponent in python so the character D is replaced with E for all the columns with data as string. Once replaced, it is converted to float.
@@ -224,7 +224,7 @@ if data_flag.sum() > min_data_points :
     plt.plot(ReTgrace,only_elastic_grace,label="elastic_GRACE",linewidth=2,c='y')
     plt.plot(ReTgrace,only_visco_elastic_grace,label="visco_elastic_GRACE",linewidth=2,c='g')
     plt.plot(ReTgrace,corrected_grace,label="corrected_GRACE",linewidth=2,c='k')
-    plt.title("GRACE and ReGPS at "+sys.argv[1])
+    plt.title("GRACE and ReGPS at "+sys.argv[2])
     plt.xlabel("year")
     plt.ylabel("Vertical (mm)")
     plt.legend()
@@ -235,7 +235,7 @@ if data_flag.sum() > min_data_points :
     img = mpimg.imread('../images/map.png')
     plt.imshow(img,extent=[-180,180,-90,90])
     plt.scatter(lon*180/np.pi,lat*180/np.pi)
-    plt.title('Location of station '+sys.argv[1])
+    plt.title('Location of station '+sys.argv[2])
     plt.xlabel('Longitude')
     plt.ylabel('Latitude')
     plt.show(block=False)

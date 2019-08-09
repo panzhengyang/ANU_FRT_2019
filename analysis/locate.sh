@@ -76,6 +76,6 @@ gmt psxy $temp_data_file $PROJ $LIMS -Sc$marker_size"c" -W0.25p -C$temp_cpt_file
 scale_yoffset=$(echo -$bottom_space/2 | bc -l )
 gmt psscale $common_additional_parameters -C$temp_cpt_file -Ba -O -Dx0c/"$scale_yoffset"c+w"$plot_width"c/0.5c+h  -P >> $PSFILE
 
-open -a preview $PSFILE
+#open -a preview $PSFILE
 
 rm $temp_data_file $temp_cpt_file 2> /dev/null

@@ -4,7 +4,7 @@ degree=$2
 # $1 is the file name of the station list 
 list_file=$1
 ./do_lsf.sh $list_file tmp_out_1.txt $degree $lamda
-cp tmp_out_1.txt "deg_"$degree".txt"
+cp tmp_out_1.txt "deg_"$degree"_lamda_"$lamda".txt"
 echo "first calc over with"
 awk '(NR==2) { print $3 }' tmp_out_1.txt
 ./calculate_Edot.sh tmp_out_1.txt $list_file tmp_edot_1.txt

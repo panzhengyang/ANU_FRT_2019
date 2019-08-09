@@ -118,7 +118,7 @@ coast = np.ma.masked_where(map_mask,coast)
 plt.imshow(visco_elastic*1000,extent=[min_lon,max_lon,min_lat,max_lat],alpha = 1,cmap='bwr')
 plt.colorbar()
 plt.imshow(coast*1000,extent=[-180,180,-90,90],alpha = 1,cmap='gray')
-plt.scatter(lon_list,lat_list,s=10,c='g')
+plt.scatter(lon_list,lat_list,s=60,c='c')
 plt.imshow(visco_elastic*1000,extent=[min_lon,max_lon,min_lat,max_lat],alpha = 0)
 
 plt.show()
